@@ -3,6 +3,7 @@ package domen;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Trener implements ApstraktniDomenskiObjekat {
 
@@ -118,4 +119,34 @@ public class Trener implements ApstraktniDomenskiObjekat {
         t.setLozinka(rs.getString("lozinka"));
         return t;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Trener other = (Trener) obj;
+        if (!Objects.equals(this.korisnickoIme, other.korisnickoIme)) {
+            return false;
+        }
+        return Objects.equals(this.lozinka, other.lozinka);
+    }
+    
+    
+    
+    
+    
+    
 }

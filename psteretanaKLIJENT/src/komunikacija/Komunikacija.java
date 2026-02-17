@@ -5,6 +5,7 @@
 package komunikacija;
 
   
+import domen.Trener;
 import java.io.IOException;
 import java.net.Socket; 
 
@@ -37,6 +38,24 @@ public class Komunikacija {
          }
          
       }
+
+    public Trener login(String korisnickoIme, String lozinka) throws Exception {
+        Trener t = new Trener();
+        t.setKorisnickoIme(korisnickoIme);
+        t.setLozinka(lozinka);
+
+        Zahtev z = new Zahtev(Operacija.LOGIN, t);
+        posiljalac.posalji(z);
+
+        Odgovor o = (Odgovor) primalac.primi();
+        Object odgovor = o.getOdgovor();
+
+        if (odgovor instanceof Exception) {
+            throw (Exception) odgovor;
+        }
+
+        return (Trener) odgovor; // može biti null
+    }
  
     
 

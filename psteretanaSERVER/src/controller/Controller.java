@@ -4,6 +4,9 @@
  */
 package controller;
 
+import domen.Trener;
+import operacije.login.LoginOperacija;
+
 public class Controller {
     private static  Controller instance;
 
@@ -15,4 +18,12 @@ public class Controller {
              }
              return instance;
      }
+
+    public Trener login(Trener t) throws Exception {
+        LoginOperacija operacija = new LoginOperacija();
+        operacija.izvrsi(t, null);
+
+        System.out.println("KLASA CONTROLLER: " + operacija.getTrener());
+        return operacija.getTrener(); // može biti null ako je neuspešan login
+    }
 }
