@@ -5,6 +5,8 @@
 package niti;
 
 import controller.Controller;
+import domen.Klijent;
+import domen.Trener;
  
 import java.io.IOException;
 import java.net.Socket;
@@ -38,9 +40,38 @@ public class ObradaKlijentskihZahteva extends Thread {
             Zahtev zahtev = (Zahtev) primalac.primi();
             Odgovor odgovor = new Odgovor();
             switch (zahtev.getOperacija()) {
-                case LOGIN:
-                                
-                    break; 
+            case LOGIN:
+                Trener t = (Trener) zahtev.getParametar();
+                t = Controller.getInstance().login(t);
+                odgovor.setOdgovor(t);
+                break;
+            case UCITAJ_KLIJENTE:
+                List<Klijent> klijenti = Controller.getInstance().ucitajKlijente();
+                odgovor.setOdgovor(klijenti);
+                break;
+
+            case DODAJ_KLIJENTA:
+                Klijent noviKlijent = (Klijent) zahtev.getParametar();
+                Controller.getInstance().dodajKlijenta(noviKlijent);
+                odgovor.setOdgovor(null);
+                break;
+
+            case AZURIRAJ_KLIJENTA:
+                Klijent izmenjeniKlijent = (Klijent) zahtev.getParametar();
+                Controller.getInstance().azurirajKlijenta(izmenjeniKlijent);
+                odgovor.setOdgovor(null);
+                break;
+
+            case OBRISI_KLIJENTA:
+                try {
+                    Klijent klijentZaBrisanje = (Klijent) zahtev.getParametar();
+                    Controller.getInstance().obrisiKlijenta(klijentZaBrisanje);
+                    odgovor.setOdgovor(null);
+                } catch (Exception e) {
+                    odgovor.setOdgovor(e);
+                }
+                break;
+
                     
 
                 default:

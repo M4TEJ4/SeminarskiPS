@@ -5,9 +5,12 @@
 package komunikacija;
 
   
+import domen.Klijent;
 import domen.Trener;
 import java.io.IOException;
 import java.net.Socket; 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -56,7 +59,62 @@ public class Komunikacija {
 
         return (Trener) odgovor; // može biti null
     }
- 
+    public void dodajKlijenta(Klijent k) {
+       Zahtev zahtev = new Zahtev(Operacija.DODAJ_KLIJENTA, k);
+       posiljalac.posalji(zahtev);
+
+       Odgovor odg = (Odgovor) primalac.primi();
+
+       if (odg.getOdgovor() == null) {
+           System.out.println("USPEH");
+       } else {
+           System.out.println("GRESKA");
+           ((Exception) odg.getOdgovor()).printStackTrace();
+       }
+   }
+
+    public void azurirajKlijenta(Klijent k) {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_KLIJENTA, k);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+            cordinator.Cordinator.getInstanca().osveziFormu();
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
+    }
+
+    public void obrisiKlijenta(Klijent k) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_KLIJENTA, k);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+            throw new Exception("Sistem ne može da obriše klijenta.");
+        }
+    }
+
+    public List<Klijent> ucitajKlijente() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_KLIJENTE, null);
+        List<Klijent> klijenti = new ArrayList<>();
+
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+        klijenti = (List<Klijent>) odg.getOdgovor();
+
+        return klijenti;
+    }
+
     
 
 }

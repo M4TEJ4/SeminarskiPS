@@ -1,12 +1,17 @@
 package cordinator;
 
 import domen.Trener;
+import forme.DodajKlijentaForm;
+import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
+import forme.PrikazKlijenataForm;
 import java.util.HashMap;
 import java.util.Map;
+import kontroleri.DodajKlijentaController;
 import kontroleri.GlavnaFormaController;
 import kontroleri.LoginController;
+import kontroleri.PrikazKlijenataController;
 
 public class Cordinator {
 
@@ -17,6 +22,9 @@ public class Cordinator {
 
     private GlavnaFormaController glavnaFormaController;
     private LoginController loginConroller;
+    
+    private PrikazKlijenataController pkController;
+    private DodajKlijentaController dkController;
 
     private Cordinator() {
         parametri = new HashMap<>();
@@ -55,4 +63,28 @@ public class Cordinator {
         this.ulogovani = ulogovani;
         System.out.println("ULOGOVANI trener: " + ulogovani);
     }
+    public void otvoriPrikazKlijenataFormu() {
+    pkController = new PrikazKlijenataController(new PrikazKlijenataForm());
+    dodajParam("aktivnaForma", "klijent");
+    pkController.otvoriFormu();
+}
+
+    public void otvoriDodajKlijentaFormu() {
+        dkController = new DodajKlijentaController(new DodajKlijentaForm());
+        dkController.otvoriFormu(FormaMod.DODAJ);
+    }
+
+    public void otvoriIzmeniKlijentaFormu() {
+        dkController = new DodajKlijentaController(new DodajKlijentaForm());
+        dkController.otvoriFormu(FormaMod.IZMENI);
+    }
+
+    public void osveziFormu() {
+        Object aktivnaForma = parametri.get("aktivnaForma");
+
+        if ("klijent".equals(aktivnaForma) && pkController != null) {
+            pkController.osveziFormu();
+        } 
+    }
+
 }
