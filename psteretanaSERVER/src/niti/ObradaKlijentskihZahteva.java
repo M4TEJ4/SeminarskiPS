@@ -7,6 +7,7 @@ package niti;
 import controller.Controller;
 import domen.Klijent;
 import domen.Trener;
+import domen.Vezba;
  
 import java.io.IOException;
 import java.net.Socket;
@@ -72,7 +73,33 @@ public class ObradaKlijentskihZahteva extends Thread {
                 }
                 break;
 
-                    
+               case UCITAJ_VEZBE:
+                List<Vezba> vezbe = Controller.getInstance().ucitajVezbe();
+                odgovor.setOdgovor(vezbe);
+                break;
+
+                case DODAJ_VEZBU:
+                    Vezba novaVezba = (Vezba) zahtev.getParametar();
+                    Controller.getInstance().dodajVezbu(novaVezba);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case AZURIRAJ_VEZBU:
+                    Vezba izmenjenaVezba = (Vezba) zahtev.getParametar();
+                    Controller.getInstance().azurirajVezbu(izmenjenaVezba);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case OBRISI_VEZBU:
+                    try {
+                        Vezba vezbaZaBrisanje = (Vezba) zahtev.getParametar();
+                        Controller.getInstance().obrisiVezbu(vezbaZaBrisanje);
+                        odgovor.setOdgovor(null);
+                    } catch (Exception e) {
+                        odgovor.setOdgovor(e);
+                    }
+                break;
+
 
                 default:
                     System.out.println("GRESKA, TA OPERACIJA NE POSTOJI");

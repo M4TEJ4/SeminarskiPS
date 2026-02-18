@@ -2,16 +2,20 @@ package cordinator;
 
 import domen.Trener;
 import forme.DodajKlijentaForm;
+import forme.DodajVezbuForm;
 import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
 import forme.PrikazKlijenataForm;
+import forme.PrikazVezbiForm;
 import java.util.HashMap;
 import java.util.Map;
 import kontroleri.DodajKlijentaController;
+import kontroleri.DodajVezbuController;
 import kontroleri.GlavnaFormaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazKlijenataController;
+import kontroleri.PrikazVezbiController;
 
 public class Cordinator {
 
@@ -25,6 +29,9 @@ public class Cordinator {
     
     private PrikazKlijenataController pkController;
     private DodajKlijentaController dkController;
+    
+    private PrikazVezbiController pvController;
+    private DodajVezbuController dvController;
 
     private Cordinator() {
         parametri = new HashMap<>();
@@ -78,13 +85,30 @@ public class Cordinator {
         dkController = new DodajKlijentaController(new DodajKlijentaForm());
         dkController.otvoriFormu(FormaMod.IZMENI);
     }
+    public void otvoriPrikazVezbiFormu() {
+        pvController = new PrikazVezbiController(new PrikazVezbiForm());
+        dodajParam("aktivnaForma", "vezba");
+        pvController.otvoriFormu();
+    }
+
+    public void otvoriDodajVezbuFormu() {
+        dvController = new DodajVezbuController(new DodajVezbuForm());
+        dvController.otvoriFormu(FormaMod.DODAJ);
+    }
+
+    public void otvoriIzmeniVezbuFormu() {
+        dvController = new DodajVezbuController(new DodajVezbuForm());
+        dvController.otvoriFormu(FormaMod.IZMENI);
+    }
 
     public void osveziFormu() {
         Object aktivnaForma = parametri.get("aktivnaForma");
 
         if ("klijent".equals(aktivnaForma) && pkController != null) {
             pkController.osveziFormu();
-        } 
+        }  else if ("vezba".equals(aktivnaForma) && pvController != null) {
+             pvController.osveziFormu();
+        }
     }
 
 }

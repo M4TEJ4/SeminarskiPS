@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.Socket; 
 import java.util.ArrayList;
 import java.util.List;
-
+import domen.Vezba;
 /**
  *
  * @author student
@@ -114,6 +114,62 @@ public class Komunikacija {
 
         return klijenti;
     }
+    public void dodajVezbu(Vezba v) {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_VEZBU, v);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
+    }
+
+    public void azurirajVezbu(Vezba v) {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_VEZBU, v);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+            cordinator.Cordinator.getInstanca().osveziFormu();
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
+    }
+
+    public void obrisiVezbu(Vezba v) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_VEZBU, v);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+            throw new Exception("Sistem ne može da obriše vežbu.");
+        }
+    }
+
+    public List<Vezba> ucitajVezbe() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_VEZBE, null);
+        List<Vezba> lista = new ArrayList<>();
+
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+        lista = (List<Vezba>) odg.getOdgovor();
+
+        return lista;
+    }
+
 
     
 

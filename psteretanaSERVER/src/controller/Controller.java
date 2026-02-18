@@ -12,6 +12,14 @@ import operacije.klijenti.AzurirajKlijentaSO;
 import operacije.klijenti.DodajKlijentaSO;
 import operacije.klijenti.ObrisiKlijentaSO;
 import operacije.klijenti.UcitajKlijenteSO;
+import domen.Trener;
+import java.util.List; 
+import domen.Vezba;
+import java.util.List;
+import operacije.vezbe.AzurirajVezbuSO;
+import operacije.vezbe.DodajVezbuSO;
+import operacije.vezbe.ObrisiVezbuSO;
+import operacije.vezbe.UcitajVezbeSO;
 public class Controller {
     private static  Controller instance;
 
@@ -51,5 +59,25 @@ public class Controller {
         ObrisiKlijentaSO operacija = new ObrisiKlijentaSO();
         operacija.izvrsi(k, null);
     }
+    public List<Vezba> ucitajVezbe() throws Exception {
+       UcitajVezbeSO operacija = new UcitajVezbeSO();
+       operacija.izvrsi(null, null);
+       return operacija.getVezbe();
+   }
+
+   public void dodajVezbu(Vezba v) throws Exception {
+       DodajVezbuSO operacija = new DodajVezbuSO();
+       operacija.izvrsi(v, null);
+   }
+
+   public void azurirajVezbu(Vezba v) throws Exception {
+       AzurirajVezbuSO operacija = new AzurirajVezbuSO();
+       operacija.izvrsi(v, null);
+   }
+
+   public void obrisiVezbu(Vezba v) throws Exception {
+       ObrisiVezbuSO operacija = new ObrisiVezbuSO();
+       operacija.izvrsi(v, null);
+   }
 
 }
