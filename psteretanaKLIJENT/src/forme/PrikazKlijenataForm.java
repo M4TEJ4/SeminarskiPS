@@ -125,6 +125,46 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
         this.jTextFieldPrezime = jTextFieldPrezime;
     }
 
+    public JButton getjButtonPrikazisamostalnetreninge() {
+        return jButtonPrikazisamostalnetreninge;
+    }
+
+    public void setjButtonPrikazisamostalnetreninge(JButton jButtonPrikazisamostalnetreninge) {
+        this.jButtonPrikazisamostalnetreninge = jButtonPrikazisamostalnetreninge;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public void setjLabel4(JLabel jLabel4) {
+        this.jLabel4 = jLabel4;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public void setjPanel2(JPanel jPanel2) {
+        this.jPanel2 = jPanel2;
+    }
+
+    public JScrollPane getjScrollPane2() {
+        return jScrollPane2;
+    }
+
+    public void setjScrollPane2(JScrollPane jScrollPane2) {
+        this.jScrollPane2 = jScrollPane2;
+    }
+
+    public JTable getjTableSamostalnitreninzi() {
+        return jTableSamostalnitreninzi;
+    }
+
+    public void setjTableSamostalnitreninzi(JTable jTableSamostalnitreninzi) {
+        this.jTableSamostalnitreninzi = jTableSamostalnitreninzi;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,6 +187,14 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
         jButtonResetuj = new javax.swing.JButton();
         jButtonAzuriraj = new javax.swing.JButton();
         jButtonObrisi = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableSamostalnitreninzi = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jButtonObrisiSTrenign = new javax.swing.JButton();
+        jButtonAzurirajSTrening = new javax.swing.JButton();
+        jButtonDodajSTrening = new javax.swing.JButton();
+        jButtonPrikazisamostalnetreninge = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -226,72 +274,173 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
 
         jButtonObrisi.setText("Obrisi");
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Trenzi odabranog klijenta"));
+
+        jTableSamostalnitreninzi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableSamostalnitreninzi);
+
+        jLabel4.setText("Samostalni treninzi");
+
+        jButtonObrisiSTrenign.setText("obrisi trening");
+        jButtonObrisiSTrenign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonObrisiSTrenignActionPerformed(evt);
+            }
+        });
+
+        jButtonAzurirajSTrening.setText("azuiraj trening");
+
+        jButtonDodajSTrening.setText("dodaj trening");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonObrisiSTrenign, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonAzurirajSTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonDodajSTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jButtonObrisiSTrenign)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAzurirajSTrening)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDodajSTrening)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButtonPrikazisamostalnetreninge.setText("Prikazi samostalne treninge");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAzuriraj)
-                    .addComponent(jButtonObrisi))
-                .addContainerGap(130, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(62, 62, 62)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jButtonAzuriraj)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonObrisi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonPrikazisamostalnetreninge)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83))
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jButtonAzuriraj)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonObrisi)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(33, 33, 33)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAzuriraj)
+                    .addComponent(jButtonObrisi)
+                    .addComponent(jButtonPrikazisamostalnetreninge))
+                .addGap(43, 43, 43))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonObrisiSTrenignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonObrisiSTrenignActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonObrisiSTrenignActionPerformed
+    public void addBtnDodajSamostalanTreningActionListener(java.awt.event.ActionListener al) {
+        jButtonDodajSTrening.addActionListener(al);
+    }
+
+    public void addBtnIzmeniSamostalanTreningActionListener(java.awt.event.ActionListener al) {
+        jButtonDodajSTrening.addActionListener(al);
+    }
+
+    public void addBtnObrisiSamostalanTreningActionListener(java.awt.event.ActionListener al) {
+        jButtonObrisiSTrenign.addActionListener(al);
+    }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAzuriraj;
+    private javax.swing.JButton jButtonAzurirajSTrening;
+    private javax.swing.JButton jButtonDodajSTrening;
     private javax.swing.JButton jButtonObrisi;
+    private javax.swing.JButton jButtonObrisiSTrenign;
     private javax.swing.JButton jButtonPretrazi;
+    private javax.swing.JButton jButtonPrikazisamostalnetreninge;
     private javax.swing.JButton jButtonResetuj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableKlijenti;
+    private javax.swing.JTable jTableSamostalnitreninzi;
     private javax.swing.JTextField jTextFieldBrojTelefona;
     private javax.swing.JTextField jTextFieldIme;
     private javax.swing.JTextField jTextFieldPrezime;
     // End of variables declaration//GEN-END:variables
 
     public void addBtnObrisiActionListener(ActionListener actionListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        jButtonObrisi.addActionListener(actionListener);
     }
 
     public void addBtnAzurirajActionListener(ActionListener actionListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        jButtonAzuriraj.addActionListener(actionListener);
     }
 
     public void addBtnPretraziActionListener(ActionListener actionListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        jButtonPretrazi.addActionListener(actionListener);
     }
 
     public void addBtnResetujActionListener(ActionListener actionListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        jButtonResetuj.addActionListener(actionListener);
+    }
+
+    public void addBtnPrikaziSamostalneTreningeActionListener(ActionListener actionListener) {
+         jButtonPrikazisamostalnetreninge.addActionListener(actionListener);
     }
 }

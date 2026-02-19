@@ -6,6 +6,7 @@ package komunikacija;
 
   
 import domen.Klijent;
+import domen.SamostalanTrening;
 import domen.Trener;
 import java.io.IOException;
 import java.net.Socket; 
@@ -169,6 +170,59 @@ public class Komunikacija {
 
         return lista;
     }
+public void dodajSamostalanTrening(SamostalanTrening s) {
+    Zahtev zahtev = new Zahtev(Operacija.DODAJ_SAMOSTALNI_TRENING, s);
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    if (odg.getOdgovor() == null) {
+        System.out.println("USPEH");
+    } else {
+        System.out.println("GRESKA");
+        ((Exception) odg.getOdgovor()).printStackTrace();
+    }
+}
+
+public void azurirajSamostalanTrening(SamostalanTrening s) {
+    Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_SAMOSTALNI_TRENING, s);
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    if (odg.getOdgovor() == null) {
+        System.out.println("USPEH");
+        cordinator.Cordinator.getInstanca().osveziFormu();
+    } else {
+        System.out.println("GRESKA");
+        ((Exception) odg.getOdgovor()).printStackTrace();
+    }
+}
+
+public void obrisiSamostalanTrening(SamostalanTrening s) throws Exception {
+    Zahtev zahtev = new Zahtev(Operacija.OBRISI_SAMOSTALNI_TRENING, s);
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    if (odg.getOdgovor() == null) {
+        System.out.println("USPEH");
+    } else {
+        System.out.println("GRESKA");
+        ((Exception) odg.getOdgovor()).printStackTrace();
+        throw new Exception("Sistem ne može da obriše samostalan trening.");
+    }
+}
+
+@SuppressWarnings("unchecked")
+public List<SamostalanTrening> ucitajSamostalneTreninge() {
+    Zahtev zahtev = new Zahtev(Operacija.UCITAJ_SAMOSTALNE_TRENINGE, null);
+    List<SamostalanTrening> lista = new ArrayList<>();
+
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    lista = (List<SamostalanTrening>) odg.getOdgovor();
+
+    return lista;
+}
 
 
     

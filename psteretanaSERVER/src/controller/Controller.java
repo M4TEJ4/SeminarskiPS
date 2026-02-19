@@ -7,6 +7,7 @@ package controller;
 import domen.Trener;
 import operacije.login.LoginOperacija;
 import domen.Klijent;
+import domen.SamostalanTrening;
 import java.util.List;
 import operacije.klijenti.AzurirajKlijentaSO;
 import operacije.klijenti.DodajKlijentaSO;
@@ -16,6 +17,10 @@ import domen.Trener;
 import java.util.List; 
 import domen.Vezba;
 import java.util.List;
+import operacije.samostalnitrening.AzurirajSamostalanTreningSO;
+import operacije.samostalnitrening.DodajSamostalanTreningSO;
+import operacije.samostalnitrening.ObrisiSamostalanTreningSO;
+import operacije.samostalnitrening.UcitajSamostalneTreningeSO;
 import operacije.vezbe.AzurirajVezbuSO;
 import operacije.vezbe.DodajVezbuSO;
 import operacije.vezbe.ObrisiVezbuSO;
@@ -55,29 +60,50 @@ public class Controller {
         operacija.izvrsi(k, null);
     }
 
-    public void obrisiKlijenta(Klijent k) throws Exception {
-        ObrisiKlijentaSO operacija = new ObrisiKlijentaSO();
-        operacija.izvrsi(k, null);
+        public void obrisiKlijenta(Klijent k) throws Exception {
+            ObrisiKlijentaSO operacija = new ObrisiKlijentaSO();
+            operacija.izvrsi(k, null);
+        }
+        public List<Vezba> ucitajVezbe() throws Exception {
+           UcitajVezbeSO operacija = new UcitajVezbeSO();
+           operacija.izvrsi(null, null);
+           return operacija.getVezbe();
+       }
+
+       public void dodajVezbu(Vezba v) throws Exception {
+           DodajVezbuSO operacija = new DodajVezbuSO();
+           operacija.izvrsi(v, null);
+       }
+
+       public void azurirajVezbu(Vezba v) throws Exception {
+           AzurirajVezbuSO operacija = new AzurirajVezbuSO();
+           operacija.izvrsi(v, null);
+       }
+
+       public void obrisiVezbu(Vezba v) throws Exception {
+           ObrisiVezbuSO operacija = new ObrisiVezbuSO();
+           operacija.izvrsi(v, null);
+       }
+       public List<SamostalanTrening> ucitajSamostalneTreninge() throws Exception {
+           UcitajSamostalneTreningeSO operacija = new UcitajSamostalneTreningeSO();
+        operacija.izvrsi(null, null);
+        return operacija.getTreninzi();
     }
-    public List<Vezba> ucitajVezbe() throws Exception {
-       UcitajVezbeSO operacija = new UcitajVezbeSO();
-       operacija.izvrsi(null, null);
-       return operacija.getVezbe();
-   }
 
-   public void dodajVezbu(Vezba v) throws Exception {
-       DodajVezbuSO operacija = new DodajVezbuSO();
-       operacija.izvrsi(v, null);
-   }
+    public void dodajSamostalanTrening(SamostalanTrening s) throws Exception {
+        DodajSamostalanTreningSO operacija = new DodajSamostalanTreningSO();
+        operacija.izvrsi(s, null);
+    }
 
-   public void azurirajVezbu(Vezba v) throws Exception {
-       AzurirajVezbuSO operacija = new AzurirajVezbuSO();
-       operacija.izvrsi(v, null);
-   }
+    public void azurirajSamostalanTrening(SamostalanTrening s) throws Exception {
+        AzurirajSamostalanTreningSO operacija = new AzurirajSamostalanTreningSO();
+        operacija.izvrsi(s, null);
+    }
 
-   public void obrisiVezbu(Vezba v) throws Exception {
-       ObrisiVezbuSO operacija = new ObrisiVezbuSO();
-       operacija.izvrsi(v, null);
-   }
+    public void obrisiSamostalanTrening(SamostalanTrening s) throws Exception {
+        ObrisiSamostalanTreningSO operacija = new ObrisiSamostalanTreningSO();
+        operacija.izvrsi(s, null);
+    }
+
 
 }

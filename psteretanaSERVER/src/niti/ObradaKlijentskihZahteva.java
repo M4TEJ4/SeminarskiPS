@@ -6,6 +6,7 @@ package niti;
 
 import controller.Controller;
 import domen.Klijent;
+import domen.SamostalanTrening;
 import domen.Trener;
 import domen.Vezba;
  
@@ -98,7 +99,34 @@ public class ObradaKlijentskihZahteva extends Thread {
                     } catch (Exception e) {
                         odgovor.setOdgovor(e);
                     }
-                break;
+                case UCITAJ_SAMOSTALNE_TRENINGE:
+                    List<SamostalanTrening> treninzi = Controller.getInstance().ucitajSamostalneTreninge();
+                    odgovor.setOdgovor(treninzi);
+                    break;
+
+                case DODAJ_SAMOSTALNI_TRENING:
+                    SamostalanTrening novi = (SamostalanTrening) zahtev.getParametar();
+                    Controller.getInstance().dodajSamostalanTrening(novi);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case AZURIRAJ_SAMOSTALNI_TRENING:
+                    SamostalanTrening izmenjen = (SamostalanTrening) zahtev.getParametar();
+                    Controller.getInstance().azurirajSamostalanTrening(izmenjen);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case OBRISI_SAMOSTALNI_TRENING:
+                    try {
+                        SamostalanTrening zaBrisanje = (SamostalanTrening) zahtev.getParametar();
+                        Controller.getInstance().obrisiSamostalanTrening(zaBrisanje);
+                        odgovor.setOdgovor(null);
+                    } catch (Exception e) {
+                        odgovor.setOdgovor(e);
+                    }
+                    break;
+
+            
 
 
                 default:

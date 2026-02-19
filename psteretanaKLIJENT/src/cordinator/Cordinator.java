@@ -3,6 +3,7 @@ package cordinator;
 import domen.Trener;
 import forme.DodajKlijentaForm;
 import forme.DodajVezbuForm;
+import forme.DodajSamostalanTreningForm;
 import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import kontroleri.DodajKlijentaController;
 import kontroleri.DodajVezbuController;
+import kontroleri.DodajSamostalanTreningController;
 import kontroleri.GlavnaFormaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazKlijenataController;
@@ -26,12 +28,15 @@ public class Cordinator {
 
     private GlavnaFormaController glavnaFormaController;
     private LoginController loginConroller;
-    
+
     private PrikazKlijenataController pkController;
     private DodajKlijentaController dkController;
-    
+
     private PrikazVezbiController pvController;
     private DodajVezbuController dvController;
+
+    // NOVO
+    private DodajSamostalanTreningController dstController;
 
     private Cordinator() {
         parametri = new HashMap<>();
@@ -70,11 +75,12 @@ public class Cordinator {
         this.ulogovani = ulogovani;
         System.out.println("ULOGOVANI trener: " + ulogovani);
     }
+
     public void otvoriPrikazKlijenataFormu() {
-    pkController = new PrikazKlijenataController(new PrikazKlijenataForm());
-    dodajParam("aktivnaForma", "klijent");
-    pkController.otvoriFormu();
-}
+        pkController = new PrikazKlijenataController(new PrikazKlijenataForm());
+        dodajParam("aktivnaForma", "klijent");
+        pkController.otvoriFormu();
+    }
 
     public void otvoriDodajKlijentaFormu() {
         dkController = new DodajKlijentaController(new DodajKlijentaForm());
@@ -85,6 +91,7 @@ public class Cordinator {
         dkController = new DodajKlijentaController(new DodajKlijentaForm());
         dkController.otvoriFormu(FormaMod.IZMENI);
     }
+
     public void otvoriPrikazVezbiFormu() {
         pvController = new PrikazVezbiController(new PrikazVezbiForm());
         dodajParam("aktivnaForma", "vezba");
@@ -101,14 +108,25 @@ public class Cordinator {
         dvController.otvoriFormu(FormaMod.IZMENI);
     }
 
+    // NOVO: SamostalanTrening forma
+    public void otvoriDodajSamostalanTreningFormu() {
+        dstController = new DodajSamostalanTreningController(new DodajSamostalanTreningForm());
+        dstController.otvoriFormu(FormaMod.DODAJ);
+    }
+
+    public void otvoriIzmeniSamostalanTreningFormu() {
+        dstController = new DodajSamostalanTreningController(new DodajSamostalanTreningForm());
+        dstController.otvoriFormu(FormaMod.IZMENI);
+    }
+
     public void osveziFormu() {
         Object aktivnaForma = parametri.get("aktivnaForma");
 
         if ("klijent".equals(aktivnaForma) && pkController != null) {
             pkController.osveziFormu();
-        }  else if ("vezba".equals(aktivnaForma) && pvController != null) {
-             pvController.osveziFormu();
+            pkController.osveziSamostalneTreninge(); // NOVO
+        } else if ("vezba".equals(aktivnaForma) && pvController != null) {
+            pvController.osveziFormu();
         }
     }
-
 }
