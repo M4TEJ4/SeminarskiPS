@@ -14,6 +14,7 @@ import operacije.klijenti.DodajKlijentaSO;
 import operacije.klijenti.ObrisiKlijentaSO;
 import operacije.klijenti.UcitajKlijenteSO;
 import domen.Trener;
+import domen.TreningSaTrenerom;
 import java.util.List; 
 import domen.Vezba;
 import java.util.List;
@@ -21,6 +22,10 @@ import operacije.samostalnitrening.AzurirajSamostalanTreningSO;
 import operacije.samostalnitrening.DodajSamostalanTreningSO;
 import operacije.samostalnitrening.ObrisiSamostalanTreningSO;
 import operacije.samostalnitrening.UcitajSamostalneTreningeSO;
+import operacije.treningsatrenerom.AzurirajTreningSaTreneromSO;
+import operacije.treningsatrenerom.DodajTreningSaTreneromSO;
+import operacije.treningsatrenerom.ObrisiTreningSaTreneromSO;
+import operacije.treningsatrenerom.UcitajTreningeSaTreneromSO;
 import operacije.vezbe.AzurirajVezbuSO;
 import operacije.vezbe.DodajVezbuSO;
 import operacije.vezbe.ObrisiVezbuSO;
@@ -104,6 +109,25 @@ public class Controller {
         ObrisiSamostalanTreningSO operacija = new ObrisiSamostalanTreningSO();
         operacija.izvrsi(s, null);
     }
+        public List<TreningSaTrenerom> ucitajTreningeSaTrenerom() throws Exception {
+            UcitajTreningeSaTreneromSO operacija = new UcitajTreningeSaTreneromSO();
+            operacija.izvrsi(null, null);
+            return operacija.getTreninzi();
+        }
 
+        public void dodajTreningSaTrenerom(TreningSaTrenerom t) throws Exception {
+            DodajTreningSaTreneromSO operacija = new DodajTreningSaTreneromSO();
+            operacija.izvrsi(t, null);
+        }
+
+        public void azurirajTreningSaTrenerom(TreningSaTrenerom t) throws Exception {
+            AzurirajTreningSaTreneromSO operacija = new AzurirajTreningSaTreneromSO();
+            operacija.izvrsi(t, null);
+        }
+
+        public void obrisiTreningSaTrenerom(TreningSaTrenerom t) throws Exception {
+            ObrisiTreningSaTreneromSO operacija = new ObrisiTreningSaTreneromSO();
+            operacija.izvrsi(t, null);
+        }
 
 }

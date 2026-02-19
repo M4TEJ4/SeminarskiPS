@@ -4,6 +4,7 @@ import domen.Trener;
 import forme.DodajKlijentaForm;
 import forme.DodajVezbuForm;
 import forme.DodajSamostalanTreningForm;
+import forme.DodajTreningSaTreneromForm;
 import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
@@ -14,6 +15,7 @@ import java.util.Map;
 import kontroleri.DodajKlijentaController;
 import kontroleri.DodajVezbuController;
 import kontroleri.DodajSamostalanTreningController;
+import kontroleri.DodajTreningSaTreneromController;
 import kontroleri.GlavnaFormaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazKlijenataController;
@@ -35,8 +37,9 @@ public class Cordinator {
     private PrikazVezbiController pvController;
     private DodajVezbuController dvController;
 
-    // NOVO
+   
     private DodajSamostalanTreningController dstController;
+    private DodajTreningSaTreneromController tstController;
 
     private Cordinator() {
         parametri = new HashMap<>();
@@ -129,4 +132,14 @@ public class Cordinator {
             pvController.osveziFormu();
         }
     }
+    public void otvoriDodajTreningSaTreneromFormu() {
+        tstController = new DodajTreningSaTreneromController(new DodajTreningSaTreneromForm());
+        tstController.otvoriFormu(FormaMod.DODAJ);
+    }
+
+    public void otvoriIzmeniTreningSaTreneromFormu() {
+        tstController = new DodajTreningSaTreneromController(new DodajTreningSaTreneromForm());
+        tstController.otvoriFormu(FormaMod.IZMENI);
+    }
+
 }

@@ -194,7 +194,14 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
         jButtonObrisiSTrenign = new javax.swing.JButton();
         jButtonAzurirajSTrening = new javax.swing.JButton();
         jButtonDodajSTrening = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jButtonDodajSTrening1 = new javax.swing.JButton();
+        jButtonAzurirajSTrening1 = new javax.swing.JButton();
+        jButtonObrisiSTrenign1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableTreninziSaTrenerom = new javax.swing.JTable();
         jButtonPrikazisamostalnetreninge = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -302,22 +309,64 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
 
         jButtonDodajSTrening.setText("dodaj trening");
 
+        jLabel5.setText("Treninzi sa trenerom");
+
+        jButtonDodajSTrening1.setText("dodaj trening");
+
+        jButtonAzurirajSTrening1.setText("azuiraj trening");
+
+        jButtonObrisiSTrenign1.setText("obrisi trening");
+        jButtonObrisiSTrenign1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonObrisiSTrenign1ActionPerformed(evt);
+            }
+        });
+
+        jTableTreninziSaTrenerom.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTableTreninziSaTrenerom);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButtonObrisiSTrenign, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButtonAzurirajSTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButtonDodajSTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel5)))
+                        .addGap(0, 10, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonObrisiSTrenign, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonAzurirajSTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonDodajSTrening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonObrisiSTrenign1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonAzurirajSTrening1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonDodajSTrening1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,32 +384,47 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
                         .addComponent(jButtonAzurirajSTrening)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonDodajSTrening)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonObrisiSTrenign1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAzurirajSTrening1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDodajSTrening1)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jButtonPrikazisamostalnetreninge.setText("Prikazi samostalne treninge");
+
+        jButton1.setText("prikazi treninge sa trenerom");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(62, 62, 62)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
                         .addComponent(jButtonAzuriraj)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonObrisi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonPrikazisamostalnetreninge)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(jButtonObrisi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonPrikazisamostalnetreninge)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +433,7 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
@@ -378,7 +442,8 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAzuriraj)
                     .addComponent(jButtonObrisi)
-                    .addComponent(jButtonPrikazisamostalnetreninge))
+                    .addComponent(jButtonPrikazisamostalnetreninge)
+                    .addComponent(jButton1))
                 .addGap(43, 43, 43))
         );
 
@@ -388,6 +453,10 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
     private void jButtonObrisiSTrenignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonObrisiSTrenignActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonObrisiSTrenignActionPerformed
+
+    private void jButtonObrisiSTrenign1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonObrisiSTrenign1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonObrisiSTrenign1ActionPerformed
     public void addBtnDodajSamostalanTreningActionListener(java.awt.event.ActionListener al) {
         jButtonDodajSTrening.addActionListener(al);
     }
@@ -401,11 +470,15 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
     }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAzuriraj;
     private javax.swing.JButton jButtonAzurirajSTrening;
+    private javax.swing.JButton jButtonAzurirajSTrening1;
     private javax.swing.JButton jButtonDodajSTrening;
+    private javax.swing.JButton jButtonDodajSTrening1;
     private javax.swing.JButton jButtonObrisi;
     private javax.swing.JButton jButtonObrisiSTrenign;
+    private javax.swing.JButton jButtonObrisiSTrenign1;
     private javax.swing.JButton jButtonPretrazi;
     private javax.swing.JButton jButtonPrikazisamostalnetreninge;
     private javax.swing.JButton jButtonResetuj;
@@ -413,12 +486,15 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableKlijenti;
     private javax.swing.JTable jTableSamostalnitreninzi;
+    private javax.swing.JTable jTableTreninziSaTrenerom;
     private javax.swing.JTextField jTextFieldBrojTelefona;
     private javax.swing.JTextField jTextFieldIme;
     private javax.swing.JTextField jTextFieldPrezime;
@@ -442,5 +518,92 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
 
     public void addBtnPrikaziSamostalneTreningeActionListener(ActionListener actionListener) {
          jButtonPrikazisamostalnetreninge.addActionListener(actionListener);
+    }
+
+    public JButton getjButtonAzurirajSTrening() {
+        return jButtonAzurirajSTrening;
+    }
+
+    public void setjButtonAzurirajSTrening(JButton jButtonAzurirajSTrening) {
+        this.jButtonAzurirajSTrening = jButtonAzurirajSTrening;
+    }
+
+    public JButton getjButtonAzurirajSTrening1() {
+        return jButtonAzurirajSTrening1;
+    }
+
+    public void setjButtonAzurirajSTrening1(JButton jButtonAzurirajSTrening1) {
+        this.jButtonAzurirajSTrening1 = jButtonAzurirajSTrening1;
+    }
+
+    public JButton getjButtonDodajSTrening() {
+        return jButtonDodajSTrening;
+    }
+
+    public void setjButtonDodajSTrening(JButton jButtonDodajSTrening) {
+        this.jButtonDodajSTrening = jButtonDodajSTrening;
+    }
+
+    public JButton getjButtonDodajSTrening1() {
+        return jButtonDodajSTrening1;
+    }
+
+    public void setjButtonDodajSTrening1(JButton jButtonDodajSTrening1) {
+        this.jButtonDodajSTrening1 = jButtonDodajSTrening1;
+    }
+
+    public JButton getjButtonObrisiSTrenign() {
+        return jButtonObrisiSTrenign;
+    }
+
+    public void setjButtonObrisiSTrenign(JButton jButtonObrisiSTrenign) {
+        this.jButtonObrisiSTrenign = jButtonObrisiSTrenign;
+    }
+
+    public JButton getjButtonObrisiSTrenign1() {
+        return jButtonObrisiSTrenign1;
+    }
+
+    public void setjButtonObrisiSTrenign1(JButton jButtonObrisiSTrenign1) {
+        this.jButtonObrisiSTrenign1 = jButtonObrisiSTrenign1;
+    }
+
+    public JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public void setjLabel5(JLabel jLabel5) {
+        this.jLabel5 = jLabel5;
+    }
+
+    public JScrollPane getjScrollPane3() {
+        return jScrollPane3;
+    }
+
+    public void setjScrollPane3(JScrollPane jScrollPane3) {
+        this.jScrollPane3 = jScrollPane3;
+    }
+
+    public JTable getjTableTreninziSaTrenerom() {
+        return jTableTreninziSaTrenerom;
+    }
+
+    public void setjTableTreninziSaTrenerom(JTable jTableTreninziSaTrenerom) {
+        this.jTableTreninziSaTrenerom = jTableTreninziSaTrenerom;
+    }
+    public void addBtnPrikaziTreningeSaTreneromActionListener(java.awt.event.ActionListener al) {
+      jButton1.addActionListener(al);
+    }
+
+    public void addBtnDodajTreningSaTreneromActionListener(java.awt.event.ActionListener al) {
+        jButtonDodajSTrening1.addActionListener(al);
+    }
+
+    public void addBtnIzmeniTreningSaTreneromActionListener(java.awt.event.ActionListener al) {
+        jButtonAzurirajSTrening1.addActionListener(al);
+    }
+
+    public void addBtnObrisiTreningSaTreneromActionListener(java.awt.event.ActionListener al) {
+        jButtonObrisiSTrenign1.addActionListener(al);
     }
 }

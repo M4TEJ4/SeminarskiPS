@@ -8,6 +8,7 @@ package komunikacija;
 import domen.Klijent;
 import domen.SamostalanTrening;
 import domen.Trener;
+import domen.TreningSaTrenerom;
 import java.io.IOException;
 import java.net.Socket; 
 import java.util.ArrayList;
@@ -222,6 +223,55 @@ public List<SamostalanTrening> ucitajSamostalneTreninge() {
     lista = (List<SamostalanTrening>) odg.getOdgovor();
 
     return lista;
+}
+public void dodajTreningSaTrenerom(TreningSaTrenerom t) {
+    Zahtev zahtev = new Zahtev(Operacija.DODAJ_TRENING_SA_TRENEROM, t);
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    if (odg.getOdgovor() == null) {
+        System.out.println("USPEH");
+    } else {
+        System.out.println("GRESKA");
+        ((Exception) odg.getOdgovor()).printStackTrace();
+    }
+}
+
+public void azurirajTreningSaTrenerom(TreningSaTrenerom t) {
+    Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_TRENING_SA_TRENEROM, t);
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    if (odg.getOdgovor() == null) {
+        System.out.println("USPEH");
+        cordinator.Cordinator.getInstanca().osveziFormu();
+    } else {
+        System.out.println("GRESKA");
+        ((Exception) odg.getOdgovor()).printStackTrace();
+    }
+}
+
+public void obrisiTreningSaTrenerom(TreningSaTrenerom t) throws Exception {
+    Zahtev zahtev = new Zahtev(Operacija.OBRISI_TRENING_SA_TRENEROM, t);
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    if (odg.getOdgovor() == null) {
+        System.out.println("USPEH");
+    } else {
+        System.out.println("GRESKA");
+        ((Exception) odg.getOdgovor()).printStackTrace();
+        throw new Exception("Sistem ne može da obriše trening sa trenerom.");
+    }
+}
+
+@SuppressWarnings("unchecked")
+public List<TreningSaTrenerom> ucitajTreningeSaTrenerom() {
+    Zahtev zahtev = new Zahtev(Operacija.UCITAJ_TRENINZI_SA_TRENEROM, null);
+    posiljalac.posalji(zahtev);
+
+    Odgovor odg = (Odgovor) primalac.primi();
+    return (List<TreningSaTrenerom>) odg.getOdgovor();
 }
 
 

@@ -3,9 +3,11 @@ package kontroleri;
 import cordinator.Cordinator;
 import domen.Klijent;
 import domen.SamostalanTrening;
+import domen.TreningSaTrenerom;
 import forme.PrikazKlijenataForm;
 import forme.model.ModelTabeleKlijent;
 import forme.model.ModelTabeleSamostalanTrening;
+import forme.model.ModelTabeleTreningSaTrenerom;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -35,6 +37,7 @@ public class PrikazKlijenataController {
 
     private void addActionListener() {
 
+        // OBRISI KLIJENTA
         pkf.addBtnObrisiActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,6 +55,7 @@ public class PrikazKlijenataController {
                     JOptionPane.showMessageDialog(pkf, "Klijent uspešno obrisan.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
                     pripremiFormu();
                     osveziSamostalneTreninge();
+                    osveziTreningeSaTrenerom();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(pkf, "Sistem ne može da obriše klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
@@ -59,6 +63,7 @@ public class PrikazKlijenataController {
             }
         });
 
+        // AZURIRAJ KLIJENTA
         pkf.addBtnAzurirajActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,6 +81,7 @@ public class PrikazKlijenataController {
             }
         });
 
+        // PRETRAZI
         pkf.addBtnPretraziActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,18 +98,22 @@ public class PrikazKlijenataController {
             }
         });
 
+        // RESETUJ
         pkf.addBtnResetujActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pripremiFormu();
                 osveziSamostalneTreninge();
+                osveziTreningeSaTrenerom();
             }
         });
 
-        // postojeće: prikaži treninge
+        // ==============================
+        // SAMOSTALNI TRENINZI (CRUD)
+        // ==============================
+
         pkf.addBtnPrikaziSamostalneTreningeActionListener(e -> osveziSamostalneTreninge());
 
-        // NOVO: DODAJ trening
         pkf.addBtnDodajSamostalanTreningActionListener(e -> {
             int red = pkf.getjTableKlijenti().getSelectedRow();
             if (red == -1) {
@@ -114,12 +124,10 @@ public class PrikazKlijenataController {
             ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
             Klijent k = mtk.getLista().get(red);
 
-            // prosledi selektovanog klijenta formi za trening
             Cordinator.getInstanca().dodajParam("klijent", k);
             Cordinator.getInstanca().otvoriDodajSamostalanTreningFormu();
         });
 
-        // NOVO: IZMENI trening
         pkf.addBtnIzmeniSamostalanTreningActionListener(e -> {
             int redTr = pkf.getjTableSamostalnitreninzi().getSelectedRow();
             if (redTr == -1) {
@@ -127,14 +135,14 @@ public class PrikazKlijenataController {
                 return;
             }
 
-            ModelTabeleSamostalanTrening mts = (ModelTabeleSamostalanTrening) pkf.getjTableSamostalnitreninzi().getModel();
+            ModelTabeleSamostalanTrening mts =
+                    (ModelTabeleSamostalanTrening) pkf.getjTableSamostalnitreninzi().getModel();
             SamostalanTrening s = mts.getLista().get(redTr);
 
             Cordinator.getInstanca().dodajParam("samostalanTrening", s);
             Cordinator.getInstanca().otvoriIzmeniSamostalanTreningFormu();
         });
 
-        // NOVO: OBRISI trening
         pkf.addBtnObrisiSamostalanTreningActionListener(e -> {
             int redTr = pkf.getjTableSamostalnitreninzi().getSelectedRow();
             if (redTr == -1) {
@@ -142,7 +150,8 @@ public class PrikazKlijenataController {
                 return;
             }
 
-            ModelTabeleSamostalanTrening mts = (ModelTabeleSamostalanTrening) pkf.getjTableSamostalnitreninzi().getModel();
+            ModelTabeleSamostalanTrening mts =
+                    (ModelTabeleSamostalanTrening) pkf.getjTableSamostalnitreninzi().getModel();
             SamostalanTrening s = mts.getLista().get(redTr);
 
             int confirm = JOptionPane.showConfirmDialog(pkf,
@@ -160,17 +169,79 @@ public class PrikazKlijenataController {
                 ex.printStackTrace();
             }
         });
+
+        // ==============================
+        // TRENINZI SA TRENEROM (CRUD)
+        // ==============================
+
+        pkf.addBtnPrikaziTreningeSaTreneromActionListener(e -> osveziTreningeSaTrenerom());
+
+        pkf.addBtnDodajTreningSaTreneromActionListener(e -> {
+            int red = pkf.getjTableKlijenti().getSelectedRow();
+            if (red == -1) {
+                JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
+            Klijent k = mtk.getLista().get(red);
+
+            Cordinator.getInstanca().dodajParam("klijent", k);
+            Cordinator.getInstanca().otvoriDodajTreningSaTreneromFormu();
+        });
+
+        pkf.addBtnIzmeniTreningSaTreneromActionListener(e -> {
+            int redTr = pkf.getjTableTreninziSaTrenerom().getSelectedRow();
+            if (redTr == -1) {
+                JOptionPane.showMessageDialog(pkf, "Morate izabrati trening za izmenu.", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ModelTabeleTreningSaTrenerom mt =
+                    (ModelTabeleTreningSaTrenerom) pkf.getjTableTreninziSaTrenerom().getModel();
+
+            TreningSaTrenerom t = mt.getLista().get(redTr);
+
+            Cordinator.getInstanca().dodajParam("treningSaTrenerom", t);
+            Cordinator.getInstanca().otvoriIzmeniTreningSaTreneromFormu();
+        });
+
+        pkf.addBtnObrisiTreningSaTreneromActionListener(e -> {
+            int redTr = pkf.getjTableTreninziSaTrenerom().getSelectedRow();
+            if (redTr == -1) {
+                JOptionPane.showMessageDialog(pkf, "Morate izabrati trening za brisanje.", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            ModelTabeleTreningSaTrenerom mt =
+                    (ModelTabeleTreningSaTrenerom) pkf.getjTableTreninziSaTrenerom().getModel();
+
+            TreningSaTrenerom t = mt.getLista().get(redTr);
+
+            int confirm = JOptionPane.showConfirmDialog(pkf,
+                    "Da li ste sigurni da želite da obrišete trening sa trenerom?",
+                    "Potvrda", JOptionPane.YES_NO_OPTION);
+
+            if (confirm != JOptionPane.YES_OPTION) return;
+
+            try {
+                Komunikacija.getInstanca().obrisiTreningSaTrenerom(t);
+                JOptionPane.showMessageDialog(pkf, "Trening uspešno obrisan.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                osveziTreningeSaTrenerom();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(pkf, "Sistem ne može da obriše trening.", "Greška", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        });
     }
 
     public void osveziFormu() {
         pripremiFormu();
     }
 
-    // NOVO: osvežavanje desne tabele po selektovanom klijentu
     public void osveziSamostalneTreninge() {
         int red = pkf.getjTableKlijenti().getSelectedRow();
         if (red == -1) {
-            // ako nema selekcije, možeš da očistiš desnu tabelu
             pkf.getjTableSamostalnitreninzi().setModel(new ModelTabeleSamostalanTrening(java.util.List.of()));
             return;
         }
@@ -185,5 +256,24 @@ public class PrikazKlijenataController {
                 .collect(Collectors.toList());
 
         pkf.getjTableSamostalnitreninzi().setModel(new ModelTabeleSamostalanTrening(njegovi));
+    }
+
+    public void osveziTreningeSaTrenerom() {
+        int red = pkf.getjTableKlijenti().getSelectedRow();
+        if (red == -1) {
+            pkf.getjTableTreninziSaTrenerom().setModel(new ModelTabeleTreningSaTrenerom(java.util.List.of()));
+            return;
+        }
+
+        ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
+        Klijent k = mtk.getLista().get(red);
+
+        List<TreningSaTrenerom> svi = Komunikacija.getInstanca().ucitajTreningeSaTrenerom();
+
+        List<TreningSaTrenerom> njegovi = svi.stream()
+                .filter(t -> t.getKlijent() != null && t.getKlijent().getIdKlijent() == k.getIdKlijent())
+                .collect(Collectors.toList());
+
+        pkf.getjTableTreninziSaTrenerom().setModel(new ModelTabeleTreningSaTrenerom(njegovi));
     }
 }

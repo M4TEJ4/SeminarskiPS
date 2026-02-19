@@ -8,6 +8,7 @@ import controller.Controller;
 import domen.Klijent;
 import domen.SamostalanTrening;
 import domen.Trener;
+import domen.TreningSaTrenerom;
 import domen.Vezba;
  
 import java.io.IOException;
@@ -125,7 +126,32 @@ public class ObradaKlijentskihZahteva extends Thread {
                         odgovor.setOdgovor(e);
                     }
                     break;
+                case UCITAJ_TRENINZI_SA_TRENEROM:
+                    List<TreningSaTrenerom> listaTST = Controller.getInstance().ucitajTreningeSaTrenerom();
+                    odgovor.setOdgovor(listaTST);
+                    break;
 
+                case DODAJ_TRENING_SA_TRENEROM:
+                    TreningSaTrenerom noviTST = (TreningSaTrenerom) zahtev.getParametar();
+                    Controller.getInstance().dodajTreningSaTrenerom(noviTST);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case AZURIRAJ_TRENING_SA_TRENEROM:
+                    TreningSaTrenerom izmenjenTST = (TreningSaTrenerom) zahtev.getParametar();
+                    Controller.getInstance().azurirajTreningSaTrenerom(izmenjenTST);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case OBRISI_TRENING_SA_TRENEROM:
+                    try {
+                        TreningSaTrenerom zaBrisanjeTST = (TreningSaTrenerom) zahtev.getParametar();
+                        Controller.getInstance().obrisiTreningSaTrenerom(zaBrisanjeTST);
+                        odgovor.setOdgovor(null);
+                    } catch (Exception e) {
+                        odgovor.setOdgovor(e);
+                    }
+                    break;
             
 
 
