@@ -7,6 +7,7 @@ package controller;
 import domen.Trener;
 import operacije.login.LoginOperacija;
 import domen.Klijent;
+import domen.PlanTreninga;
 import domen.SamostalanTrening;
 import java.util.List;
 import operacije.klijenti.AzurirajKlijentaSO;
@@ -18,6 +19,10 @@ import domen.TreningSaTrenerom;
 import java.util.List; 
 import domen.Vezba;
 import java.util.List;
+import operacije.plantreninga.AzurirajPlanTreningaSO;
+import operacije.plantreninga.DodajPlanTreningaSO;
+import operacije.plantreninga.ObrisiPlanTreningaSO;
+import operacije.plantreninga.UcitajPlanoveTreningaSO;
 import operacije.samostalnitrening.AzurirajSamostalanTreningSO;
 import operacije.samostalnitrening.DodajSamostalanTreningSO;
 import operacije.samostalnitrening.ObrisiSamostalanTreningSO;
@@ -129,5 +134,25 @@ public class Controller {
             ObrisiTreningSaTreneromSO operacija = new ObrisiTreningSaTreneromSO();
             operacija.izvrsi(t, null);
         }
+        public List<PlanTreninga> ucitajPlanoveTreninga(String kljuc) throws Exception {
+            UcitajPlanoveTreningaSO operacija = new UcitajPlanoveTreningaSO();
+            operacija.izvrsi(null, kljuc);
+            return operacija.getPlanovi();
+        }
 
+        public int dodajPlanTreninga(PlanTreninga p) throws Exception {
+            DodajPlanTreningaSO operacija = new DodajPlanTreningaSO();
+            operacija.izvrsi(p, null);
+            return operacija.getNoviPlanId();
+        }
+
+        public void azurirajPlanTreninga(PlanTreninga p) throws Exception {
+            AzurirajPlanTreningaSO operacija = new AzurirajPlanTreningaSO();
+            operacija.izvrsi(p, null);
+        }
+
+        public void obrisiPlanTreninga(PlanTreninga p) throws Exception {
+            ObrisiPlanTreningaSO operacija = new ObrisiPlanTreningaSO();
+            operacija.izvrsi(p, null);
+        }
 }

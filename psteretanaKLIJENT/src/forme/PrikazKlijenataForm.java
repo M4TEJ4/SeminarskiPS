@@ -203,7 +203,7 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
         jButtonPrikazisamostalnetreninge = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTableKlijenti.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

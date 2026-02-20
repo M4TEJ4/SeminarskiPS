@@ -72,7 +72,7 @@ public class DbRepositotyGeneric implements DbRepository<ApstraktniDomenskiObjek
 
     @Override
     public List<ApstraktniDomenskiObjekat> getAll() { //TODO
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                throw new UnsupportedOperationException("Not supported yet.     GetAllDBRepoGeneric"); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
     }
     
@@ -101,7 +101,14 @@ public class DbRepositotyGeneric implements DbRepository<ApstraktniDomenskiObjek
  
     }
  
-    
+        public void deleteWhere(String tabela, String uslov) throws Exception {
+            String sql = "DELETE FROM " + tabela + " WHERE " + uslov;
+            System.out.println(sql);
+
+            Statement st = DbConnectionFactory.getInstance().getConnection().createStatement();
+            st.executeUpdate(sql);
+            st.close();
+        }
     
     
 }

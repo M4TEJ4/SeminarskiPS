@@ -6,6 +6,7 @@ package komunikacija;
 
   
 import domen.Klijent;
+import domen.PlanTreninga;
 import domen.SamostalanTrening;
 import domen.Trener;
 import domen.TreningSaTrenerom;
@@ -274,7 +275,64 @@ public List<TreningSaTrenerom> ucitajTreningeSaTrenerom() {
     return (List<TreningSaTrenerom>) odg.getOdgovor();
 }
 
+ 
 
-    
+            @SuppressWarnings("unchecked")
+            public List<PlanTreninga> ucitajPlanoveTreninga(String uslov) {
+                Zahtev zahtev = new Zahtev(Operacija.UCITAJ_PLANOVE_TRENINGA, uslov);
+                posiljalac.posalji(zahtev);
+
+                Odgovor odg = (Odgovor) primalac.primi();
+                return (List<PlanTreninga>) odg.getOdgovor();
+            }
+
+            public int dodajPlanTreninga(PlanTreninga p) throws Exception {
+                Zahtev zahtev = new Zahtev(Operacija.DODAJ_PLAN_TRENINGA, p);
+                posiljalac.posalji(zahtev);
+
+                Odgovor odg = (Odgovor) primalac.primi();
+                Object odgovor = odg.getOdgovor();
+
+                if (odgovor instanceof Exception) {
+                    ((Exception) odgovor).printStackTrace();
+                    throw (Exception) odgovor;
+                }
+
+                // ocekujemo da server vrati int id
+                return (int) odgovor;
+            }
+
+            public void azurirajPlanTreninga(PlanTreninga p) throws Exception {
+                Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_PLAN_TRENINGA, p);
+                posiljalac.posalji(zahtev);
+
+                Odgovor odg = (Odgovor) primalac.primi();
+                Object odgovor = odg.getOdgovor();
+
+                if (odgovor == null) {
+                    System.out.println("USPEH");
+                    cordinator.Cordinator.getInstanca().osveziFormu();
+                } else {
+                    System.out.println("GRESKA");
+                    ((Exception) odgovor).printStackTrace();
+                    throw new Exception("Sistem ne može da ažurira plan treninga.");
+                }
+            }
+
+            public void obrisiPlanTreninga(PlanTreninga p) throws Exception {
+                Zahtev zahtev = new Zahtev(Operacija.OBRISI_PLAN_TRENINGA, p);
+                posiljalac.posalji(zahtev);
+
+                Odgovor odg = (Odgovor) primalac.primi();
+                Object odgovor = odg.getOdgovor();
+
+                if (odgovor == null) {
+                    System.out.println("USPEH");
+                } else {
+                    System.out.println("GRESKA");
+                    ((Exception) odgovor).printStackTrace();
+                    throw new Exception("Sistem ne može da obriše plan treninga.");
+                }
+            }
 
 }

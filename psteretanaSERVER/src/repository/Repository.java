@@ -17,5 +17,5 @@ public interface Repository<T> {
     void delete(T param)throws Exception;
     List<T> getAll();
     int addReturnKey(T param) throws Exception;
-
+    void deleteWhere(String tabela, String uslov) throws Exception;
 }

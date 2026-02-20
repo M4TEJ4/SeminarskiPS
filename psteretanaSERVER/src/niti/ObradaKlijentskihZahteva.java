@@ -6,6 +6,7 @@ package niti;
 
 import controller.Controller;
 import domen.Klijent;
+import domen.PlanTreninga;
 import domen.SamostalanTrening;
 import domen.Trener;
 import domen.TreningSaTrenerom;
@@ -100,6 +101,7 @@ public class ObradaKlijentskihZahteva extends Thread {
                     } catch (Exception e) {
                         odgovor.setOdgovor(e);
                     }
+                    break;
                 case UCITAJ_SAMOSTALNE_TRENINGE:
                     List<SamostalanTrening> treninzi = Controller.getInstance().ucitajSamostalneTreninge();
                     odgovor.setOdgovor(treninzi);
@@ -152,8 +154,35 @@ public class ObradaKlijentskihZahteva extends Thread {
                         odgovor.setOdgovor(e);
                     }
                     break;
-            
+                    
+                case UCITAJ_PLANOVE_TRENINGA:
+                    // parametar moze biti String uslov/join ili null
+                    String uslov = (String) zahtev.getParametar(); 
+                    List<PlanTreninga> planovi = Controller.getInstance().ucitajPlanoveTreninga(uslov);
+                    odgovor.setOdgovor(planovi);
+                    break;
 
+                case DODAJ_PLAN_TRENINGA:
+                    PlanTreninga noviPlan = (PlanTreninga) zahtev.getParametar();
+                    int noviId = Controller.getInstance().dodajPlanTreninga(noviPlan);
+                    odgovor.setOdgovor(noviId); // vracamo ID (korisno klijentu)
+                    break;
+
+                case AZURIRAJ_PLAN_TRENINGA:
+                    PlanTreninga izmenjenPlan = (PlanTreninga) zahtev.getParametar();
+                    Controller.getInstance().azurirajPlanTreninga(izmenjenPlan);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case OBRISI_PLAN_TRENINGA:
+                    try {
+                        PlanTreninga planZaBrisanje = (PlanTreninga) zahtev.getParametar();
+                        Controller.getInstance().obrisiPlanTreninga(planZaBrisanje);
+                        odgovor.setOdgovor(null);
+                    } catch (Exception e) {
+                        odgovor.setOdgovor(e);
+                    }
+                    break;
 
                 default:
                     System.out.println("GRESKA, TA OPERACIJA NE POSTOJI");

@@ -48,6 +48,10 @@ public class LoginForma extends javax.swing.JFrame {
 
         jLabel2.setText("Unesite lozinku");
 
+        jTextFieldUsername.setText("marko.m");
+
+        jPasswordField1.setText("hash1");
+
         jButton1.setText("PRIJAVA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

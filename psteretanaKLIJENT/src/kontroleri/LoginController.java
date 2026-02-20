@@ -46,7 +46,7 @@ public class LoginController {
                 Cordinator.getInstanca().setUlogovani(ulogovani);
                 JOptionPane.showMessageDialog(lf, "Prijava na sistem uspešna.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
 
-                Cordinator.getInstanca().otvoriGlavnuFormu();
+                Cordinator.getInstanca().otvoriPrikazPlanovaTreningaFormu();
                 lf.dispose();
             }
         } catch (Exception ex) {
