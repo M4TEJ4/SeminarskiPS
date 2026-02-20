@@ -75,7 +75,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pregled klijenata"/>
+                <Property name="text" type="java.lang.String" value="Pregled trenera"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
@@ -83,7 +83,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dodaj klijenta"/>
+                <Property name="text" type="java.lang.String" value="Dodaj trenere"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
@@ -123,9 +123,9 @@
                   <Group type="102" attributes="0">
                       <Component id="btnDodajPlan" min="-2" pref="96" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnIzmeniPlan" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnObrisiPlan" min="-2" pref="96" max="-2" attributes="0"/>
+                      <Component id="btnIzmeniPlan" min="-2" pref="164" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnObrisiPlan" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="0" min="-2" pref="805" max="-2" attributes="0"/>
                   <Component id="btnOsveziPlanove" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>

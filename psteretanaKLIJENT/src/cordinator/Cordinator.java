@@ -4,12 +4,14 @@ import domen.Trener;
 import forme.DodajKlijentaForm;
 import forme.DodajPlanTreningaForm;
 import forme.DodajSamostalanTreningForm;
+import forme.DodajTreneraForm;
 import forme.DodajTreningSaTreneromForm;
 import forme.DodajVezbuForm;
 import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
 import forme.PrikazKlijenataForm;
+import forme.PrikazTreneraForm;
 import forme.PrikazVezbiForm;
 
 import java.util.HashMap;
@@ -18,11 +20,13 @@ import java.util.Map;
 import kontroleri.DodajKlijentaController;
 import kontroleri.DodajPlanTreningaController;
 import kontroleri.DodajSamostalanTreningController;
+import kontroleri.DodajTreneraController;
 import kontroleri.DodajTreningSaTreneromController;
 import kontroleri.DodajVezbuController;
 import kontroleri.LoginController;
 import kontroleri.PrikazKlijenataController;
 import kontroleri.PrikazPlanovaTreningaController;
+import kontroleri.PrikazTreneraController;
 import kontroleri.PrikazVezbiController;
 
 public class Cordinator {
@@ -45,6 +49,9 @@ public class Cordinator {
 
     private PrikazPlanovaTreningaController ppController;
     private DodajPlanTreningaController dpController;
+    
+    private PrikazTreneraController ptController;
+    private DodajTreneraController dtController;
 
     // BITNO: jedna jedina instanca glavne forme
     private GlavnaForma glavnaForma;
@@ -158,7 +165,21 @@ public class Cordinator {
         dpController = new DodajPlanTreningaController(new DodajPlanTreningaForm());
         dpController.otvoriFormu(FormaMod.IZMENI);
     }
+    public void otvoriPrikazTreneraFormu() {
+        ptController = new PrikazTreneraController(new PrikazTreneraForm());
+        dodajParam("aktivnaForma", "trener");
+        ptController.otvoriFormu();
+    }
 
+    public void otvoriDodajTreneraFormu() {
+        dtController = new DodajTreneraController(new DodajTreneraForm());
+        dtController.otvoriFormu(FormaMod.DODAJ);
+    }
+
+    public void otvoriIzmeniTreneraFormu() {
+        dtController = new DodajTreneraController(new DodajTreneraForm());
+        dtController.otvoriFormu(FormaMod.IZMENI);
+    }
     public void osveziFormu() {
         Object aktivnaForma = parametri.get("aktivnaForma");
 
@@ -169,6 +190,8 @@ public class Cordinator {
             pvController.osveziFormu();
         } else if ("plan".equals(aktivnaForma) && ppController != null) {
             ppController.osveziFormu();
+        }else if ("trener".equals(aktivnaForma) && ptController != null) {
+            ptController.osveziFormu();
         }
     }
 }

@@ -183,7 +183,32 @@ public class ObradaKlijentskihZahteva extends Thread {
                         odgovor.setOdgovor(e);
                     }
                     break;
+                case UCITAJ_TRENERE:
+                    List<Trener> treneri = Controller.getInstance().ucitajTrenere();
+                    odgovor.setOdgovor(treneri);
+                    break;
 
+                case DODAJ_TRENERA:
+                    Trener noviTrener = (Trener) zahtev.getParametar();
+                    Controller.getInstance().dodajTrenera(noviTrener);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case AZURIRAJ_TRENERA:
+                    Trener izmenjenTrener = (Trener) zahtev.getParametar();
+                    Controller.getInstance().azurirajTrenera(izmenjenTrener);
+                    odgovor.setOdgovor(null);
+                    break;
+
+                case OBRISI_TRENERA:
+                    try {
+                        Trener trenerZaBrisanje = (Trener) zahtev.getParametar();
+                        Controller.getInstance().obrisiTrenera(trenerZaBrisanje);
+                        odgovor.setOdgovor(null);
+                    } catch (Exception e) {
+                        odgovor.setOdgovor(e);
+                    }
+                    break;
                 default:
                     System.out.println("GRESKA, TA OPERACIJA NE POSTOJI");
                     

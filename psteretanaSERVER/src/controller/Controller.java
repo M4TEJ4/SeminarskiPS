@@ -27,6 +27,10 @@ import operacije.samostalnitrening.AzurirajSamostalanTreningSO;
 import operacije.samostalnitrening.DodajSamostalanTreningSO;
 import operacije.samostalnitrening.ObrisiSamostalanTreningSO;
 import operacije.samostalnitrening.UcitajSamostalneTreningeSO;
+import operacije.treneri.AzurirajTreneraSO;
+import operacije.treneri.DodajTreneraSO;
+import operacije.treneri.ObrisiTreneraSO;
+import operacije.treneri.UcitajTrenereSO;
 import operacije.treningsatrenerom.AzurirajTreningSaTreneromSO;
 import operacije.treningsatrenerom.DodajTreningSaTreneromSO;
 import operacije.treningsatrenerom.ObrisiTreningSaTreneromSO;
@@ -154,5 +158,25 @@ public class Controller {
         public void obrisiPlanTreninga(PlanTreninga p) throws Exception {
             ObrisiPlanTreningaSO operacija = new ObrisiPlanTreningaSO();
             operacija.izvrsi(p, null);
+        }
+       public List<Trener> ucitajTrenere() throws Exception {
+            UcitajTrenereSO operacija = new UcitajTrenereSO();
+            operacija.izvrsi(null, null);
+            return operacija.getTreneri();
+        }
+
+        public void dodajTrenera(Trener t) throws Exception {
+            DodajTreneraSO operacija = new DodajTreneraSO();
+            operacija.izvrsi(t, null);
+        }
+
+        public void azurirajTrenera(Trener t) throws Exception {
+            AzurirajTreneraSO operacija = new AzurirajTreneraSO();
+            operacija.izvrsi(t, null);
+        }
+
+        public void obrisiTrenera(Trener t) throws Exception {
+            ObrisiTreneraSO operacija = new ObrisiTreneraSO();
+            operacija.izvrsi(t, null);
         }
 }

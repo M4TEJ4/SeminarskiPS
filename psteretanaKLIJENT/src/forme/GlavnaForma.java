@@ -123,7 +123,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         jMenu5.setText("Treneri");
 
-        jMenuItem5.setText("Pregled klijenata");
+        jMenuItem5.setText("Pregled trenera");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -131,7 +131,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem5);
 
-        jMenuItem6.setText("Dodaj klijenta");
+        jMenuItem6.setText("Dodaj trenere");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -153,9 +153,9 @@ public class GlavnaForma extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDodajPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnIzmeniPlan)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnObrisiPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnIzmeniPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnObrisiPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOsveziPlanove, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
@@ -196,11 +196,12 @@ public class GlavnaForma extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        Cordinator.getInstanca().otvoriPrikazTreneraFormu();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+         Cordinator.getInstanca().otvoriDodajTreneraFormu();
+                 
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     public JButton getBtnDodajPlan() {

@@ -4,29 +4,32 @@
  */
 package komunikacija;
 
-  
 import domen.Klijent;
 import domen.PlanTreninga;
 import domen.SamostalanTrening;
 import domen.Trener;
 import domen.TreningSaTrenerom;
+import domen.Vezba;
 import java.io.IOException;
-import java.net.Socket; 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import domen.Vezba;
+
 /**
  *
  * @author student
  */
 public class Komunikacija {
-     private Socket soket;
+
+    private Socket soket;
     private Posiljalac posiljalac;
     private Primalac primalac;
-     private static Komunikacija instanca;
+
+    private static Komunikacija instanca;
+
     private Komunikacija() {
-    }   
-     
+    }
+
     public static Komunikacija getInstanca() {
         if (instanca == null) {
             instanca = new Komunikacija();
@@ -34,17 +37,19 @@ public class Komunikacija {
         return instanca;
     }
 
-      public void konekcija()  {
-         try {
-             soket = new Socket("localhost", 9000);
-             posiljalac = new Posiljalac(soket);
-             primalac = new Primalac(soket);
-         } catch (IOException ex) {
-             System.out.println("SERVER NIJE POVEZAN");
-         }
-         
-      }
+    public void konekcija() {
+        try {
+            soket = new Socket("localhost", 9000);
+            posiljalac = new Posiljalac(soket);
+            primalac = new Primalac(soket);
+        } catch (IOException ex) {
+            System.out.println("SERVER NIJE POVEZAN");
+        }
+    }
 
+    // =========================
+    // LOGIN
+    // =========================
     public Trener login(String korisnickoIme, String lozinka) throws Exception {
         Trener t = new Trener();
         t.setKorisnickoIme(korisnickoIme);
@@ -60,21 +65,25 @@ public class Komunikacija {
             throw (Exception) odgovor;
         }
 
-        return (Trener) odgovor; // može biti null
+        return (Trener) odgovor; // moze biti null
     }
+
+    // =========================
+    // KLIJENT CRUD
+    // =========================
     public void dodajKlijenta(Klijent k) {
-       Zahtev zahtev = new Zahtev(Operacija.DODAJ_KLIJENTA, k);
-       posiljalac.posalji(zahtev);
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_KLIJENTA, k);
+        posiljalac.posalji(zahtev);
 
-       Odgovor odg = (Odgovor) primalac.primi();
+        Odgovor odg = (Odgovor) primalac.primi();
 
-       if (odg.getOdgovor() == null) {
-           System.out.println("USPEH");
-       } else {
-           System.out.println("GRESKA");
-           ((Exception) odg.getOdgovor()).printStackTrace();
-       }
-   }
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
+    }
 
     public void azurirajKlijenta(Klijent k) {
         Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_KLIJENTA, k);
@@ -106,17 +115,18 @@ public class Komunikacija {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public List<Klijent> ucitajKlijente() {
         Zahtev zahtev = new Zahtev(Operacija.UCITAJ_KLIJENTE, null);
-        List<Klijent> klijenti = new ArrayList<>();
-
         posiljalac.posalji(zahtev);
 
         Odgovor odg = (Odgovor) primalac.primi();
-        klijenti = (List<Klijent>) odg.getOdgovor();
-
-        return klijenti;
+        return (List<Klijent>) odg.getOdgovor();
     }
+
+    // =========================
+    // VEZBA CRUD
+    // =========================
     public void dodajVezbu(Vezba v) {
         Zahtev zahtev = new Zahtev(Operacija.DODAJ_VEZBU, v);
         posiljalac.posalji(zahtev);
@@ -161,178 +171,246 @@ public class Komunikacija {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public List<Vezba> ucitajVezbe() {
         Zahtev zahtev = new Zahtev(Operacija.UCITAJ_VEZBE, null);
-        List<Vezba> lista = new ArrayList<>();
-
         posiljalac.posalji(zahtev);
 
         Odgovor odg = (Odgovor) primalac.primi();
-        lista = (List<Vezba>) odg.getOdgovor();
-
-        return lista;
+        return (List<Vezba>) odg.getOdgovor();
     }
-public void dodajSamostalanTrening(SamostalanTrening s) {
-    Zahtev zahtev = new Zahtev(Operacija.DODAJ_SAMOSTALNI_TRENING, s);
-    posiljalac.posalji(zahtev);
 
-    Odgovor odg = (Odgovor) primalac.primi();
-    if (odg.getOdgovor() == null) {
-        System.out.println("USPEH");
-    } else {
-        System.out.println("GRESKA");
-        ((Exception) odg.getOdgovor()).printStackTrace();
+    // =========================
+    // SAMOSTALNI TRENINZI CRUD
+    // =========================
+    public void dodajSamostalanTrening(SamostalanTrening s) {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_SAMOSTALNI_TRENING, s);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
     }
-}
 
-public void azurirajSamostalanTrening(SamostalanTrening s) {
-    Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_SAMOSTALNI_TRENING, s);
-    posiljalac.posalji(zahtev);
+    public void azurirajSamostalanTrening(SamostalanTrening s) {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_SAMOSTALNI_TRENING, s);
+        posiljalac.posalji(zahtev);
 
-    Odgovor odg = (Odgovor) primalac.primi();
-    if (odg.getOdgovor() == null) {
-        System.out.println("USPEH");
-        cordinator.Cordinator.getInstanca().osveziFormu();
-    } else {
-        System.out.println("GRESKA");
-        ((Exception) odg.getOdgovor()).printStackTrace();
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+            cordinator.Cordinator.getInstanca().osveziFormu();
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
     }
-}
 
-public void obrisiSamostalanTrening(SamostalanTrening s) throws Exception {
-    Zahtev zahtev = new Zahtev(Operacija.OBRISI_SAMOSTALNI_TRENING, s);
-    posiljalac.posalji(zahtev);
+    public void obrisiSamostalanTrening(SamostalanTrening s) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_SAMOSTALNI_TRENING, s);
+        posiljalac.posalji(zahtev);
 
-    Odgovor odg = (Odgovor) primalac.primi();
-    if (odg.getOdgovor() == null) {
-        System.out.println("USPEH");
-    } else {
-        System.out.println("GRESKA");
-        ((Exception) odg.getOdgovor()).printStackTrace();
-        throw new Exception("Sistem ne može da obriše samostalan trening.");
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+            throw new Exception("Sistem ne može da obriše samostalan trening.");
+        }
     }
-}
 
-@SuppressWarnings("unchecked")
-public List<SamostalanTrening> ucitajSamostalneTreninge() {
-    Zahtev zahtev = new Zahtev(Operacija.UCITAJ_SAMOSTALNE_TRENINGE, null);
-    List<SamostalanTrening> lista = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    public List<SamostalanTrening> ucitajSamostalneTreninge() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_SAMOSTALNE_TRENINGE, null);
+        posiljalac.posalji(zahtev);
 
-    posiljalac.posalji(zahtev);
-
-    Odgovor odg = (Odgovor) primalac.primi();
-    lista = (List<SamostalanTrening>) odg.getOdgovor();
-
-    return lista;
-}
-public void dodajTreningSaTrenerom(TreningSaTrenerom t) {
-    Zahtev zahtev = new Zahtev(Operacija.DODAJ_TRENING_SA_TRENEROM, t);
-    posiljalac.posalji(zahtev);
-
-    Odgovor odg = (Odgovor) primalac.primi();
-    if (odg.getOdgovor() == null) {
-        System.out.println("USPEH");
-    } else {
-        System.out.println("GRESKA");
-        ((Exception) odg.getOdgovor()).printStackTrace();
+        Odgovor odg = (Odgovor) primalac.primi();
+        return (List<SamostalanTrening>) odg.getOdgovor();
     }
-}
 
-public void azurirajTreningSaTrenerom(TreningSaTrenerom t) {
-    Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_TRENING_SA_TRENEROM, t);
-    posiljalac.posalji(zahtev);
+    // =========================
+    // TRENINZI SA TRENEROM CRUD
+    // =========================
+    public void dodajTreningSaTrenerom(TreningSaTrenerom t) {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_TRENING_SA_TRENEROM, t);
+        posiljalac.posalji(zahtev);
 
-    Odgovor odg = (Odgovor) primalac.primi();
-    if (odg.getOdgovor() == null) {
-        System.out.println("USPEH");
-        cordinator.Cordinator.getInstanca().osveziFormu();
-    } else {
-        System.out.println("GRESKA");
-        ((Exception) odg.getOdgovor()).printStackTrace();
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
     }
-}
 
-public void obrisiTreningSaTrenerom(TreningSaTrenerom t) throws Exception {
-    Zahtev zahtev = new Zahtev(Operacija.OBRISI_TRENING_SA_TRENEROM, t);
-    posiljalac.posalji(zahtev);
+    public void azurirajTreningSaTrenerom(TreningSaTrenerom t) {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_TRENING_SA_TRENEROM, t);
+        posiljalac.posalji(zahtev);
 
-    Odgovor odg = (Odgovor) primalac.primi();
-    if (odg.getOdgovor() == null) {
-        System.out.println("USPEH");
-    } else {
-        System.out.println("GRESKA");
-        ((Exception) odg.getOdgovor()).printStackTrace();
-        throw new Exception("Sistem ne može da obriše trening sa trenerom.");
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+            cordinator.Cordinator.getInstanca().osveziFormu();
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+        }
     }
-}
 
-@SuppressWarnings("unchecked")
-public List<TreningSaTrenerom> ucitajTreningeSaTrenerom() {
-    Zahtev zahtev = new Zahtev(Operacija.UCITAJ_TRENINZI_SA_TRENEROM, null);
-    posiljalac.posalji(zahtev);
+    public void obrisiTreningSaTrenerom(TreningSaTrenerom t) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_TRENING_SA_TRENEROM, t);
+        posiljalac.posalji(zahtev);
 
-    Odgovor odg = (Odgovor) primalac.primi();
-    return (List<TreningSaTrenerom>) odg.getOdgovor();
-}
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg.getOdgovor() == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odg.getOdgovor()).printStackTrace();
+            throw new Exception("Sistem ne može da obriše trening sa trenerom.");
+        }
+    }
 
- 
+    @SuppressWarnings("unchecked")
+    public List<TreningSaTrenerom> ucitajTreningeSaTrenerom() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_TRENINZI_SA_TRENEROM, null);
+        posiljalac.posalji(zahtev);
 
-            @SuppressWarnings("unchecked")
-            public List<PlanTreninga> ucitajPlanoveTreninga(String uslov) {
-                Zahtev zahtev = new Zahtev(Operacija.UCITAJ_PLANOVE_TRENINGA, uslov);
-                posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        return (List<TreningSaTrenerom>) odg.getOdgovor();
+    }
 
-                Odgovor odg = (Odgovor) primalac.primi();
-                return (List<PlanTreninga>) odg.getOdgovor();
-            }
+    // =========================
+    // PLAN TRENINGA CRUD
+    // =========================
+    @SuppressWarnings("unchecked")
+    public List<PlanTreninga> ucitajPlanoveTreninga(String uslov) {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_PLANOVE_TRENINGA, uslov);
+        posiljalac.posalji(zahtev);
 
-            public int dodajPlanTreninga(PlanTreninga p) throws Exception {
-                Zahtev zahtev = new Zahtev(Operacija.DODAJ_PLAN_TRENINGA, p);
-                posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        return (List<PlanTreninga>) odg.getOdgovor();
+    }
 
-                Odgovor odg = (Odgovor) primalac.primi();
-                Object odgovor = odg.getOdgovor();
+    public int dodajPlanTreninga(PlanTreninga p) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_PLAN_TRENINGA, p);
+        posiljalac.posalji(zahtev);
 
-                if (odgovor instanceof Exception) {
-                    ((Exception) odgovor).printStackTrace();
-                    throw (Exception) odgovor;
-                }
+        Odgovor odg = (Odgovor) primalac.primi();
+        Object odgovor = odg.getOdgovor();
 
-                // ocekujemo da server vrati int id
-                return (int) odgovor;
-            }
+        if (odgovor instanceof Exception) {
+            ((Exception) odgovor).printStackTrace();
+            throw (Exception) odgovor;
+        }
 
-            public void azurirajPlanTreninga(PlanTreninga p) throws Exception {
-                Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_PLAN_TRENINGA, p);
-                posiljalac.posalji(zahtev);
+        return (int) odgovor; // ocekujemo int id
+    }
 
-                Odgovor odg = (Odgovor) primalac.primi();
-                Object odgovor = odg.getOdgovor();
+    public void azurirajPlanTreninga(PlanTreninga p) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_PLAN_TRENINGA, p);
+        posiljalac.posalji(zahtev);
 
-                if (odgovor == null) {
-                    System.out.println("USPEH");
-                    cordinator.Cordinator.getInstanca().osveziFormu();
-                } else {
-                    System.out.println("GRESKA");
-                    ((Exception) odgovor).printStackTrace();
-                    throw new Exception("Sistem ne može da ažurira plan treninga.");
-                }
-            }
+        Odgovor odg = (Odgovor) primalac.primi();
+        Object odgovor = odg.getOdgovor();
 
-            public void obrisiPlanTreninga(PlanTreninga p) throws Exception {
-                Zahtev zahtev = new Zahtev(Operacija.OBRISI_PLAN_TRENINGA, p);
-                posiljalac.posalji(zahtev);
+        if (odgovor == null) {
+            System.out.println("USPEH");
+            cordinator.Cordinator.getInstanca().osveziFormu();
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odgovor).printStackTrace();
+            throw new Exception("Sistem ne može da ažurira plan treninga.");
+        }
+    }
 
-                Odgovor odg = (Odgovor) primalac.primi();
-                Object odgovor = odg.getOdgovor();
+    public void obrisiPlanTreninga(PlanTreninga p) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_PLAN_TRENINGA, p);
+        posiljalac.posalji(zahtev);
 
-                if (odgovor == null) {
-                    System.out.println("USPEH");
-                } else {
-                    System.out.println("GRESKA");
-                    ((Exception) odgovor).printStackTrace();
-                    throw new Exception("Sistem ne može da obriše plan treninga.");
-                }
-            }
+        Odgovor odg = (Odgovor) primalac.primi();
+        Object odgovor = odg.getOdgovor();
 
+        if (odgovor == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odgovor).printStackTrace();
+            throw new Exception("Sistem ne može da obriše plan treninga.");
+        }
+    }
+
+    // =========================
+    // TRENER CRUD (NOVO)
+    // =========================
+    public void dodajTrenera(Trener t) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_TRENERA, t);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+        Object odgovor = odg.getOdgovor();
+
+        if (odgovor == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odgovor).printStackTrace();
+            throw new Exception("Sistem ne može da doda trenera.");
+        }
+    }
+
+    public void azurirajTrenera(Trener t) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_TRENERA, t);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+        Object odgovor = odg.getOdgovor();
+
+        if (odgovor == null) {
+            System.out.println("USPEH");
+            cordinator.Cordinator.getInstanca().osveziFormu();
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odgovor).printStackTrace();
+            throw new Exception("Sistem ne može da ažurira trenera.");
+        }
+    }
+
+    public void obrisiTrenera(Trener t) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_TRENERA, t);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+        Object odgovor = odg.getOdgovor();
+
+        if (odgovor == null) {
+            System.out.println("USPEH");
+        } else {
+            System.out.println("GRESKA");
+            ((Exception) odgovor).printStackTrace();
+            throw new Exception("Sistem ne može da obriše trenera.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Trener> ucitajTrenere() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_TRENERE, null);
+        posiljalac.posalji(zahtev);
+
+        Odgovor odg = (Odgovor) primalac.primi();
+        Object odgovor = odg.getOdgovor();
+
+        if (odgovor instanceof Exception) {
+            ((Exception) odgovor).printStackTrace();
+            return new ArrayList<>();
+        }
+
+        return (List<Trener>) odgovor;
+    }
 }
