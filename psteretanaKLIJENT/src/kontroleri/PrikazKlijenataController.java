@@ -10,6 +10,7 @@ import forme.model.ModelTabeleSamostalanTrening;
 import forme.model.ModelTabeleTreningSaTrenerom;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
@@ -114,17 +115,7 @@ public class PrikazKlijenataController {
 
         pkf.addBtnPrikaziSamostalneTreningeActionListener(e -> osveziSamostalneTreninge());
 
-        pkf.addBtnDodajSamostalanTreningActionListener(e -> {
-            int red = pkf.getjTableKlijenti().getSelectedRow();
-            if (red == -1) {
-                JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
-            Klijent k = mtk.getLista().get(red);
-
-            Cordinator.getInstanca().dodajParam("klijent", k);
+        pkf.addBtnDodajSamostalanTreningActionListener(e -> { 
             Cordinator.getInstanca().otvoriDodajSamostalanTreningFormu();
         });
 
@@ -176,20 +167,12 @@ public class PrikazKlijenataController {
 
         pkf.addBtnPrikaziTreningeSaTreneromActionListener(e -> osveziTreningeSaTrenerom());
 
-        pkf.addBtnDodajTreningSaTreneromActionListener(e -> {
-            int red = pkf.getjTableKlijenti().getSelectedRow();
-            if (red == -1) {
-                JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
-            Klijent k = mtk.getLista().get(red);
-
-            Cordinator.getInstanca().dodajParam("klijent", k);
+        pkf.addBtnDodajTreningSaTreneromActionListener(e -> { 
             Cordinator.getInstanca().otvoriDodajTreningSaTreneromFormu();
         });
 
+        
+        
         pkf.addBtnIzmeniTreningSaTreneromActionListener(e -> {
             int redTr = pkf.getjTableTreninziSaTrenerom().getSelectedRow();
             if (redTr == -1) {
@@ -242,7 +225,7 @@ public class PrikazKlijenataController {
     public void osveziSamostalneTreninge() {
         int red = pkf.getjTableKlijenti().getSelectedRow();
         if (red == -1) {
-            pkf.getjTableSamostalnitreninzi().setModel(new ModelTabeleSamostalanTrening(java.util.List.of()));
+            pkf.getjTableSamostalnitreninzi().setModel(new ModelTabeleSamostalanTrening(new ArrayList<>()));
             return;
         }
 
@@ -261,7 +244,7 @@ public class PrikazKlijenataController {
     public void osveziTreningeSaTrenerom() {
         int red = pkf.getjTableKlijenti().getSelectedRow();
         if (red == -1) {
-            pkf.getjTableTreninziSaTrenerom().setModel(new ModelTabeleTreningSaTrenerom(java.util.List.of()));
+            pkf.getjTableTreninziSaTrenerom().setModel(new ModelTabeleTreningSaTrenerom(new ArrayList<>()));
             return;
         }
 

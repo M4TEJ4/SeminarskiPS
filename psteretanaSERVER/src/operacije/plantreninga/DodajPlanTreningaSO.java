@@ -57,23 +57,23 @@ public class DodajPlanTreningaSO extends ApstraktnaGenerickaOperacija {
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         PlanTreninga plan = (PlanTreninga) param;
 
-       
-        broker.add(plan);
-        noviPlanId = plan.getIdPlanTreninga();
+        int id = broker.addReturnKey(plan);
+        if (id <= 0) {
+            throw new Exception("Sistem ne može da doda plan treninga: nije generisan ID.");
+        }
 
-         
+        plan.setIdPlanTreninga(id);
+        noviPlanId = id;
 
-       
         if (plan.getStavke() != null) {
             int rb = 1;
             for (StavkaPlanaTreninga s : plan.getStavke()) {
-                s.setPlanId(noviPlanId);
+                s.setPlanId(noviPlanId);  
                 s.setRb(rb++);
                 broker.add(s);
             }
         }
     }
-
     private void validirajStavke(List<StavkaPlanaTreninga> stavke) throws Exception {
         int i = 1;
         for (StavkaPlanaTreninga s : stavke) {

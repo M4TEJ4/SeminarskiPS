@@ -45,7 +45,7 @@ public class PrikazTreneraForm extends javax.swing.JFrame {
         jButtonObrisi = new javax.swing.JButton();
         jButtonAzuriraj = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTableTreneri.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

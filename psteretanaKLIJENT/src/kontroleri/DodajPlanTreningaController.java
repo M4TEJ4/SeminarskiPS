@@ -33,10 +33,11 @@ public class DodajPlanTreningaController {
 
     private void pripremiFormu(FormaMod mod) {
         // tabela stavki
-        dpf.getjTableStavke().setModel(new ModelTabeleStavkaPlanaTreninga(java.util.List.of()));
+        dpf.getjTableStavke().setModel(new ModelTabeleStavkaPlanaTreninga(new java.util.ArrayList<>()));
 
-        // popuni vezbe
+        // popuni combo-e iz baze
         popuniVezbe();
+        popuniKlijente();
 
         switch (mod) {
             case DODAJ:
@@ -50,11 +51,10 @@ public class DodajPlanTreningaController {
                     dpf.getjTextFieldTrener().setText(ulogovani.getIme() + " " + ulogovani.getPrezime());
                 }
 
-                // klijent mora biti prosleđen kroz Cordinator (npr. iz neke forme gde biraš klijenta)
-                Klijent k = (Klijent) Cordinator.getInstanca().vratiParam("klijent");
-                if (k != null) {
-                    dpf.getjTextFieldKlijent().setText(k.getIme() + " " + k.getPrezime());
-                }
+                // u DODAJ modu: nema više prosleđivanja klijenta kroz Cordinator,
+                // korisnik bira klijenta iz combo box-a
+                // (ako želiš da bude prazno dok ne izabere)
+                // dpf.getjComboBoxKlijenti().setSelectedIndex(-1);
 
                 break;
 
@@ -81,11 +81,12 @@ public class DodajPlanTreningaController {
                 if (p.getTrener() != null) {
                     dpf.getjTextFieldTrener().setText(p.getTrener().getIme() + " " + p.getTrener().getPrezime());
                 }
+
+                // u IZMENI modu: selektuj klijenta u combobox-u
                 if (p.getKlijent() != null) {
-                    dpf.getjTextFieldKlijent().setText(p.getKlijent().getIme() + " " + p.getKlijent().getPrezime());
+                    selektujKlijentaUCombo(p.getKlijent());
                 }
 
-         
                 ModelTabeleStavkaPlanaTreninga mts =
                         (ModelTabeleStavkaPlanaTreninga) dpf.getjTableStavke().getModel();
                 mts.setLista(p.getStavke());
@@ -164,7 +165,7 @@ public class DodajPlanTreningaController {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(dpf, "Greška prilikom dodavanja plana.", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dpf, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -182,7 +183,7 @@ public class DodajPlanTreningaController {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(dpf, "Greška prilikom izmene plana.", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dpf, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -202,15 +203,9 @@ public class DodajPlanTreningaController {
         Trener trener = Cordinator.getInstanca().getUlogovani();
         if (trener == null) throw new Exception("Nije ulogovan trener.");
 
-        // Klijenta uzimamo iz parametra (ili iz već prosleđenog plana u izmeni)
-        Klijent klijent;
-        if (!izmena) {
-            klijent = (Klijent) Cordinator.getInstanca().vratiParam("klijent");
-            if (klijent == null) throw new Exception("Nije prosleđen klijent.");
-        } else {
-            PlanTreninga stari = (PlanTreninga) Cordinator.getInstanca().vratiParam("planTreninga");
-            klijent = stari.getKlijent();
-        }
+        // Klijent se sada bira iz combo box-a (i u dodavanju i u izmeni)
+        Klijent klijent = (Klijent) dpf.getjComboBoxKlijenti().getSelectedItem();
+        if (klijent == null) throw new Exception("Morate izabrati klijenta.");
 
         ModelTabeleStavkaPlanaTreninga mts =
                 (ModelTabeleStavkaPlanaTreninga) dpf.getjTableStavke().getModel();
@@ -236,5 +231,26 @@ public class DodajPlanTreningaController {
         for (Vezba v : vezbe) {
             dpf.getjComboBoxVezbe().addItem(v);
         }
+    }
+
+    private void popuniKlijente() {
+        dpf.getjComboBoxKlijenti().removeAllItems();
+        List<Klijent> klijenti = Komunikacija.getInstanca().ucitajKlijente();
+        for (Klijent k : klijenti) {
+            dpf.getjComboBoxKlijenti().addItem(k);
+        }
+        dpf.getjComboBoxKlijenti().setSelectedIndex(-1);
+    }
+
+    private void selektujKlijentaUCombo(Klijent target) {
+        for (int i = 0; i < dpf.getjComboBoxKlijenti().getItemCount(); i++) {
+            Klijent k = dpf.getjComboBoxKlijenti().getItemAt(i);
+            if (k != null && target != null && k.getIdKlijent() == target.getIdKlijent()) {
+                dpf.getjComboBoxKlijenti().setSelectedIndex(i);
+                return;
+            }
+        }
+        // Ako ga nema u listi (ne bi trebalo), ostavi prazno
+        dpf.getjComboBoxKlijenti().setSelectedIndex(-1);
     }
 }

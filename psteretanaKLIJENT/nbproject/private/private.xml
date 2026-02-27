@@ -4,20 +4,32 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/PrikazVezbiForm.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/DodajSamostalanTreningForm.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/PrikazKlijenataController.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/model/ModelTabeleKlijent.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/model/ModelTabeleVezba.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/PrikazKlijenataForm.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/DodajTreningSaTreneromForm.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/DodajPlanTreningaController.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/DodajTreneraController.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/model/ModelTabelePlanTreninga.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/DodajKlijentaController.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/komunikacija/Komunikacija.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/DodajKlijentaForm.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/main/Main.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/cordinator/Cordinator.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/DodajTreneraForm.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/LoginForma.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/PrikazVezbiController.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/GlavnaFormaController.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/LoginController.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/GlavnaForma.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/PrikazTreneraController.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/PrikazTreneraForm.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/model/ModelTabeleKlijent.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/model/ModelTabeleVezba.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/model/ModelTabeleTrener.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/PrikazKlijenataForm.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/komunikacija/Komunikacija.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/main/Main.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/cordinator/Cordinator.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/model/ModelTabeleStavkaPlanaTreninga.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/DodajPlanTreningaForm.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/DodajVezbuForm.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/kontroleri/PrikazPlanovaTreningaController.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaKLIJENT/src/forme/FormaMod.java</file>
         </group>
     </open-files>
