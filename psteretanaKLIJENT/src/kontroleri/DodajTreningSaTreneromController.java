@@ -5,8 +5,7 @@ import domen.Klijent;
 import domen.TreningSaTrenerom;
 import forme.DodajTreningSaTreneromForm;
 import forme.FormaMod;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import komunikacija.Komunikacija;
@@ -26,20 +25,8 @@ public class DodajTreningSaTreneromController {
     }
 
     private void addActionListener() {
-
-        forma.addBtnSacuvajActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dodaj();
-            }
-        });
-
-        forma.addBtnIzmeniActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                izmeni();
-            }
-        });
+        forma.getjButtonSacuvaj().addActionListener(e -> dodaj());
+        forma.getjButtonIzmeni().addActionListener(e -> izmeni());
     }
 
     private void dodaj() {
@@ -69,10 +56,19 @@ public class DodajTreningSaTreneromController {
     private void izmeni() {
         try {
             TreningSaTrenerom t = (TreningSaTrenerom) Cordinator.getInstanca().vratiParam("treningSaTrenerom");
+            if (t == null) {
+                JOptionPane.showMessageDialog(forma, "Nije prosleđen trening za izmenu.", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             Klijent k = (Klijent) forma.getjComboBoxKlijenti().getSelectedItem();
             String nivo = forma.getjTextFieldNivoPodrske().getText().trim();
             String zdrav = forma.getjTextFieldZdravstvenoStanje().getText().trim();
+
+            if (k == null) {
+                JOptionPane.showMessageDialog(forma, "Morate izabrati klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             t.setKlijent(k);
             t.setNivoPodrske(nivo);
@@ -92,36 +88,36 @@ public class DodajTreningSaTreneromController {
 
     private void pripremiFormu(FormaMod mod) {
 
-        // combo klijenti
         List<Klijent> klijenti = Komunikacija.getInstanca().ucitajKlijente();
+        if (klijenti == null) klijenti = new ArrayList<>();
+
         forma.getjComboBoxKlijenti().removeAllItems();
-        for (Klijent k : klijenti) forma.getjComboBoxKlijenti().addItem(k);
+        for (Klijent k : klijenti) {
+            forma.getjComboBoxKlijenti().addItem(k);
+        }
 
-        switch (mod) {
-            case DODAJ:
-                forma.getjButtonSacuvaj().setVisible(true);
-                forma.getjButtonIzmeni().setVisible(false);
+        if (mod == FormaMod.DODAJ) {
+            forma.getjButtonSacuvaj().setVisible(true);
+            forma.getjButtonIzmeni().setVisible(false);
 
-                Klijent izabrani = (Klijent) Cordinator.getInstanca().vratiParam("klijent");
-                if (izabrani != null) {
-                    forma.getjComboBoxKlijenti().setSelectedItem(izabrani);
-                }
+            Klijent izabrani = (Klijent) Cordinator.getInstanca().vratiParam("klijent");
+            if (izabrani != null) {
+                forma.getjComboBoxKlijenti().setSelectedItem(izabrani);
+            }
 
-                forma.getjTextFieldNivoPodrske().setText("");
-                forma.getjTextFieldZdravstvenoStanje().setText("");
-                break;
+            forma.getjTextFieldNivoPodrske().setText("");
+            forma.getjTextFieldZdravstvenoStanje().setText("");
 
-            case IZMENI:
-                forma.getjButtonSacuvaj().setVisible(false);
-                forma.getjButtonIzmeni().setVisible(true);
+        } else {
+            forma.getjButtonSacuvaj().setVisible(false);
+            forma.getjButtonIzmeni().setVisible(true);
 
-                TreningSaTrenerom t = (TreningSaTrenerom) Cordinator.getInstanca().vratiParam("treningSaTrenerom");
-                if (t != null) {
-                    forma.getjComboBoxKlijenti().setSelectedItem(t.getKlijent());
-                    forma.getjTextFieldNivoPodrske().setText(t.getNivoPodrske());
-                    forma.getjTextFieldZdravstvenoStanje().setText(t.getZdravstvenoStanje());
-                }
-                break;
+            TreningSaTrenerom t = (TreningSaTrenerom) Cordinator.getInstanca().vratiParam("treningSaTrenerom");
+            if (t != null) {
+                forma.getjComboBoxKlijenti().setSelectedItem(t.getKlijent());
+                forma.getjTextFieldNivoPodrske().setText(t.getNivoPodrske());
+                forma.getjTextFieldZdravstvenoStanje().setText(t.getZdravstvenoStanje());
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class SamostalanTrening implements ApstraktniDomenskiObjekat {
 
+    private int idSamostalanTrening;   // NOVO (PK)
     private Klijent klijent;
     private boolean teretana;
     private boolean kardio;
@@ -17,6 +18,14 @@ public class SamostalanTrening implements ApstraktniDomenskiObjekat {
         this.klijent = klijent;
         this.teretana = teretana;
         this.kardio = kardio;
+    }
+
+    public int getIdSamostalanTrening() {
+        return idSamostalanTrening;
+    }
+
+    public void setIdSamostalanTrening(int idSamostalanTrening) {
+        this.idSamostalanTrening = idSamostalanTrening;
     }
 
     public Klijent getKlijent() {
@@ -45,7 +54,7 @@ public class SamostalanTrening implements ApstraktniDomenskiObjekat {
 
     @Override
     public String toString() {
-        return klijent + " (samostalan)";
+        return "SamostalanTrening #" + idSamostalanTrening + " - " + klijent;
     }
 
     @Override
@@ -65,12 +74,15 @@ public class SamostalanTrening implements ApstraktniDomenskiObjekat {
 
     @Override
     public String vratiPrimarniKljuc() {
-        return "idKlijent=" + klijent.getIdKlijent();
+        // NOVO: koristi pravi PK iz baze
+        return "idSamostalanTrening=" + idSamostalanTrening;
     }
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        return "teretana=" + (teretana ? 1 : 0) + ", kardio=" + (kardio ? 1 : 0);
+        return "idKlijent=" + klijent.getIdKlijent()
+                + ", teretana=" + (teretana ? 1 : 0)
+                + ", kardio=" + (kardio ? 1 : 0);
     }
 
     @Override
@@ -78,6 +90,9 @@ public class SamostalanTrening implements ApstraktniDomenskiObjekat {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             SamostalanTrening s = new SamostalanTrening();
+
+            // NOVO: ucitaj PK
+            s.setIdSamostalanTrening(rs.getInt("idSamostalanTrening"));
 
             Klijent k = new Klijent();
             k.setIdKlijent(rs.getInt("idKlijent"));
@@ -96,6 +111,9 @@ public class SamostalanTrening implements ApstraktniDomenskiObjekat {
     @Override
     public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
         SamostalanTrening s = new SamostalanTrening();
+
+        // NOVO: ucitaj PK
+        s.setIdSamostalanTrening(rs.getInt("idSamostalanTrening"));
 
         Klijent k = new Klijent();
         k.setIdKlijent(rs.getInt("idKlijent"));

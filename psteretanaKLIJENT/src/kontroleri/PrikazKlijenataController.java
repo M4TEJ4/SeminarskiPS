@@ -8,8 +8,6 @@ import forme.PrikazKlijenataForm;
 import forme.model.ModelTabeleKlijent;
 import forme.model.ModelTabeleSamostalanTrening;
 import forme.model.ModelTabeleTreningSaTrenerom;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,82 +30,70 @@ public class PrikazKlijenataController {
 
     public void pripremiFormu() {
         List<Klijent> klijenti = Komunikacija.getInstanca().ucitajKlijente();
+        if (klijenti == null) klijenti = new ArrayList<>();
+
         ModelTabeleKlijent mtk = new ModelTabeleKlijent(klijenti);
         pkf.getjTableKlijenti().setModel(mtk);
+
+        // Opcionalno: odmah očisti/napuni zavisne tabele
+        osveziSamostalneTreninge();
+        osveziTreningeSaTrenerom();
     }
 
     private void addActionListener() {
 
         // OBRISI KLIJENTA
-        pkf.addBtnObrisiActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int red = pkf.getjTableKlijenti().getSelectedRow();
-                if (red == -1) {
-                    JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta za brisanje.", "Greška", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+        pkf.addBtnObrisiActionListener(e -> {
+            int red = pkf.getjTableKlijenti().getSelectedRow();
+            if (red == -1) {
+                JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta za brisanje.", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-                ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
-                Klijent k = mtk.getLista().get(red);
+            ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
+            Klijent k = mtk.getLista().get(red);
 
-                try {
-                    Komunikacija.getInstanca().obrisiKlijenta(k);
-                    JOptionPane.showMessageDialog(pkf, "Klijent uspešno obrisan.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
-                    pripremiFormu();
-                    osveziSamostalneTreninge();
-                    osveziTreningeSaTrenerom();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(pkf, "Sistem ne može da obriše klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                }
+            try {
+                Komunikacija.getInstanca().obrisiKlijenta(k);
+                JOptionPane.showMessageDialog(pkf, "Klijent uspešno obrisan.", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                pripremiFormu();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(pkf, "Sistem ne može da obriše klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
             }
         });
 
         // AZURIRAJ KLIJENTA
-        pkf.addBtnAzurirajActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int red = pkf.getjTableKlijenti().getSelectedRow();
-                if (red == -1) {
-                    JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta za izmenu.", "Greška", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
-                Klijent k = mtk.getLista().get(red);
-
-                Cordinator.getInstanca().dodajParam("klijent", k);
-                Cordinator.getInstanca().otvoriIzmeniKlijentaFormu();
+        pkf.addBtnAzurirajActionListener(e -> {
+            int red = pkf.getjTableKlijenti().getSelectedRow();
+            if (red == -1) {
+                JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta za izmenu.", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
+            ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
+            Klijent k = mtk.getLista().get(red);
+
+            Cordinator.getInstanca().dodajParam("klijent", k);
+            Cordinator.getInstanca().otvoriIzmeniKlijentaFormu();
         });
 
         // PRETRAZI
-        pkf.addBtnPretraziActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String ime = pkf.getjTextFieldIme().getText().trim();
-                String prezime = pkf.getjTextFieldPrezime().getText().trim();
-                String tel = pkf.getjTextFieldBrojTelefona().getText().trim();
+        pkf.addBtnPretraziActionListener(e -> {
+            String ime = pkf.getjTextFieldIme().getText().trim();
+            String prezime = pkf.getjTextFieldPrezime().getText().trim();
+            String tel = pkf.getjTextFieldBrojTelefona().getText().trim();
 
-                ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
-                mtk.pretrazi(ime, prezime, tel);
+            ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
+            mtk.pretrazi(ime, prezime, tel);
 
-                if (mtk.getLista().isEmpty()) {
-                    JOptionPane.showMessageDialog(pkf, "Sistem ne može da pronađe klijente po zadatim kriterijumima.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
-                }
+            if (mtk.getLista().isEmpty()) {
+                JOptionPane.showMessageDialog(pkf, "Sistem ne može da pronađe klijente po zadatim kriterijumima.", "GREŠKA", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         // RESETUJ
-        pkf.addBtnResetujActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pripremiFormu();
-                osveziSamostalneTreninge();
-                osveziTreningeSaTrenerom();
-            }
-        });
+        pkf.addBtnResetujActionListener(e -> pripremiFormu());
 
         // ==============================
         // SAMOSTALNI TRENINZI (CRUD)
@@ -115,7 +101,12 @@ public class PrikazKlijenataController {
 
         pkf.addBtnPrikaziSamostalneTreningeActionListener(e -> osveziSamostalneTreninge());
 
-        pkf.addBtnDodajSamostalanTreningActionListener(e -> { 
+        pkf.addBtnDodajSamostalanTreningActionListener(e -> {
+            Klijent k = getSelektovaniKlijentIliPoruka();
+            if (k == null) return;
+
+            // Prosledi kontekst (klijent) da forma može da preselektuje ili da radi bez NPE
+            Cordinator.getInstanca().dodajParam("klijent", k);
             Cordinator.getInstanca().otvoriDodajSamostalanTreningFormu();
         });
 
@@ -167,12 +158,17 @@ public class PrikazKlijenataController {
 
         pkf.addBtnPrikaziTreningeSaTreneromActionListener(e -> osveziTreningeSaTrenerom());
 
-        pkf.addBtnDodajTreningSaTreneromActionListener(e -> { 
+        pkf.addBtnDodajTreningSaTreneromActionListener(e -> {
+            Klijent k = getSelektovaniKlijentIliPoruka();
+            if (k == null) return;
+
+            Cordinator.getInstanca().dodajParam("klijent", k);
+            // ako forma želi i trenera kao podrazumevanog:
+            Cordinator.getInstanca().dodajParam("trener", Cordinator.getInstanca().getUlogovani());
+
             Cordinator.getInstanca().otvoriDodajTreningSaTreneromFormu();
         });
 
-        
-        
         pkf.addBtnIzmeniTreningSaTreneromActionListener(e -> {
             int redTr = pkf.getjTableTreninziSaTrenerom().getSelectedRow();
             if (redTr == -1) {
@@ -218,6 +214,17 @@ public class PrikazKlijenataController {
         });
     }
 
+    private Klijent getSelektovaniKlijentIliPoruka() {
+        int red = pkf.getjTableKlijenti().getSelectedRow();
+        if (red == -1) {
+            JOptionPane.showMessageDialog(pkf, "Morate izabrati klijenta.", "Greška", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        ModelTabeleKlijent mtk = (ModelTabeleKlijent) pkf.getjTableKlijenti().getModel();
+        return mtk.getLista().get(red);
+    }
+
     public void osveziFormu() {
         pripremiFormu();
     }
@@ -233,6 +240,7 @@ public class PrikazKlijenataController {
         Klijent k = mtk.getLista().get(red);
 
         List<SamostalanTrening> svi = Komunikacija.getInstanca().ucitajSamostalneTreninge();
+        if (svi == null) svi = new ArrayList<>();
 
         List<SamostalanTrening> njegovi = svi.stream()
                 .filter(s -> s.getKlijent() != null && s.getKlijent().getIdKlijent() == k.getIdKlijent())
@@ -252,6 +260,7 @@ public class PrikazKlijenataController {
         Klijent k = mtk.getLista().get(red);
 
         List<TreningSaTrenerom> svi = Komunikacija.getInstanca().ucitajTreningeSaTrenerom();
+        if (svi == null) svi = new ArrayList<>();
 
         List<TreningSaTrenerom> njegovi = svi.stream()
                 .filter(t -> t.getKlijent() != null && t.getKlijent().getIdKlijent() == k.getIdKlijent())

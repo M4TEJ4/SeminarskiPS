@@ -462,7 +462,7 @@ public class PrikazKlijenataForm extends javax.swing.JFrame {
     }
 
     public void addBtnIzmeniSamostalanTreningActionListener(java.awt.event.ActionListener al) {
-        jButtonDodajSTrening.addActionListener(al);
+        jButtonAzurirajSTrening.addActionListener(al);
     }
 
     public void addBtnObrisiSamostalanTreningActionListener(java.awt.event.ActionListener al) {

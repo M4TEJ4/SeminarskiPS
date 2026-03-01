@@ -6,7 +6,8 @@ import java.util.List;
 
 public class TreningSaTrenerom implements ApstraktniDomenskiObjekat {
 
-    private Klijent klijent;  
+    private int idTreningSaTrenerom;   // NOVO (PK)
+    private Klijent klijent;
     private String nivoPodrske;
     private String zdravstvenoStanje;
 
@@ -17,6 +18,14 @@ public class TreningSaTrenerom implements ApstraktniDomenskiObjekat {
         this.klijent = klijent;
         this.nivoPodrske = nivoPodrske;
         this.zdravstvenoStanje = zdravstvenoStanje;
+    }
+
+    public int getIdTreningSaTrenerom() {
+        return idTreningSaTrenerom;
+    }
+
+    public void setIdTreningSaTrenerom(int idTreningSaTrenerom) {
+        this.idTreningSaTrenerom = idTreningSaTrenerom;
     }
 
     public Klijent getKlijent() {
@@ -45,7 +54,7 @@ public class TreningSaTrenerom implements ApstraktniDomenskiObjekat {
 
     @Override
     public String toString() {
-        return klijent + " (sa trenerom)";
+        return "TreningSaTrenerom #" + idTreningSaTrenerom + " - " + klijent;
     }
 
     @Override
@@ -60,17 +69,21 @@ public class TreningSaTrenerom implements ApstraktniDomenskiObjekat {
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return klijent.getIdKlijent() + ", '" + nivoPodrske + "', '" + zdravstvenoStanje + "'";
+        return klijent.getIdKlijent()
+                + ", '" + nivoPodrske + "', '" + zdravstvenoStanje + "'";
     }
 
     @Override
     public String vratiPrimarniKljuc() {
-        return "idKlijent=" + klijent.getIdKlijent();
+        // NOVO: koristi pravi PK iz baze
+        return "idTreningSaTrenerom=" + idTreningSaTrenerom;
     }
 
     @Override
     public String vratiVrednostiZaIzmenu() {
-        return "nivoPodrske='" + nivoPodrske + "', zdravstvenoStanje='" + zdravstvenoStanje + "'";
+        return "idKlijent=" + klijent.getIdKlijent()
+                + ", nivoPodrske='" + nivoPodrske + "'"
+                + ", zdravstvenoStanje='" + zdravstvenoStanje + "'";
     }
 
     @Override
@@ -78,6 +91,9 @@ public class TreningSaTrenerom implements ApstraktniDomenskiObjekat {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             TreningSaTrenerom t = new TreningSaTrenerom();
+
+            // NOVO: ucitaj PK
+            t.setIdTreningSaTrenerom(rs.getInt("idTreningSaTrenerom"));
 
             Klijent k = new Klijent();
             k.setIdKlijent(rs.getInt("idKlijent"));
@@ -96,6 +112,9 @@ public class TreningSaTrenerom implements ApstraktniDomenskiObjekat {
     @Override
     public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
         TreningSaTrenerom t = new TreningSaTrenerom();
+
+        // NOVO: ucitaj PK
+        t.setIdTreningSaTrenerom(rs.getInt("idTreningSaTrenerom"));
 
         Klijent k = new Klijent();
         k.setIdKlijent(rs.getInt("idKlijent"));

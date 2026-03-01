@@ -12,7 +12,6 @@
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/treneri/ObrisiTreneraSO.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/login/LoginOperacija.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/vezbe/ObrisiVezbuSO.java</file>
-            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/klijenti/UcitajKlijenteSO.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/vezbe/DodajVezbuSO.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/plantreninga/DodajPlanTreningaSO.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/plantreninga/AzurirajPlanTreningaSO.java</file>
@@ -31,6 +30,7 @@
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/treneri/DodajTreneraSO.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/repository/db/DbRepository.java</file>
             <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/treneri/AzurirajTreneraSO.java</file>
+            <file>file:/C:/Users/vanja/Documents/NetBeansProjects/psteretanaSERVER/src/operacije/samostalnitrening/DodajSamostalanTreningSO.java</file>
         </group>
     </open-files>
 </project-private>

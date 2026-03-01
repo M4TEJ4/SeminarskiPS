@@ -32,7 +32,7 @@ CREATE TABLE `klijent` (
   `BMR` double NOT NULL,
   `brojTelefona` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`idKlijent`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `klijent` */
 
@@ -59,30 +59,34 @@ CREATE TABLE `plantreninga` (
   KEY `idx_plan_klijent` (`idKlijent`),
   CONSTRAINT `fk_plan_klijent` FOREIGN KEY (`idKlijent`) REFERENCES `klijent` (`idKlijent`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_plan_trener` FOREIGN KEY (`idTrener`) REFERENCES `trener` (`idTrener`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `plantreninga` */
 
 insert  into `plantreninga`(`idPlanTreninga`,`datumPocetka`,`datumKraja`,`brojTreningaNedeljno`,`ukupanBrojVezbi`,`faktorAktivnosti`,`dnevniUnosKalorija`,`idTrener`,`idKlijent`) values 
-(1,'2026-02-01','2026-02-28',4,12,1.55,1900,1,1),
-(2,'2026-02-01','2026-02-28',3,9,1.4,2200,2,2);
+(4,'2025-10-10','2025-10-15',1,1,1,1,1,1);
 
 /*Table structure for table `samostalantrening` */
 
 DROP TABLE IF EXISTS `samostalantrening`;
 
 CREATE TABLE `samostalantrening` (
+  `idSamostalanTrening` int NOT NULL AUTO_INCREMENT,
   `idKlijent` int NOT NULL,
   `teretana` tinyint(1) NOT NULL,
   `kardio` tinyint(1) NOT NULL,
-  PRIMARY KEY (`idKlijent`),
-  CONSTRAINT `fk_st_klijent` FOREIGN KEY (`idKlijent`) REFERENCES `klijent` (`idKlijent`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`idSamostalanTrening`),
+  KEY `fk_st_klijent` (`idKlijent`),
+  CONSTRAINT `fk_st_klijent` FOREIGN KEY (`idKlijent`) REFERENCES `klijent` (`idKlijent`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `samostalantrening` */
 
-insert  into `samostalantrening`(`idKlijent`,`teretana`,`kardio`) values 
-(2,1,1);
+insert  into `samostalantrening`(`idSamostalanTrening`,`idKlijent`,`teretana`,`kardio`) values 
+(1,1,1,1),
+(2,2,1,0),
+(3,1,1,0),
+(4,2,0,1);
 
 /*Table structure for table `stavkaplanatreninga` */
 
@@ -104,11 +108,8 @@ CREATE TABLE `stavkaplanatreninga` (
 /*Data for the table `stavkaplanatreninga` */
 
 insert  into `stavkaplanatreninga`(`idPlanTreninga`,`rb`,`brojSerija`,`brojPonavljanja`,`napomena`,`idVezba`) values 
-(1,1,4,8,'Kontrolisan tempo',1),
-(1,2,4,10,'Pauza 90s',2),
-(1,3,3,6,'Do otkaza - bez ljuljanja',3),
-(2,1,1,30,'Lagani tempo',4),
-(2,2,3,10,'Bez blokade laktova',2);
+(4,1,2,2,'2',2),
+(4,2,3,3,'3',3);
 
 /*Table structure for table `tiptrenera` */
 
@@ -141,7 +142,7 @@ CREATE TABLE `trener` (
   `lozinka` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`idTrener`),
   UNIQUE KEY `korisnickoIme` (`korisnickoIme`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `trener` */
 
@@ -154,17 +155,19 @@ insert  into `trener`(`idTrener`,`ime`,`prezime`,`korisnickoIme`,`lozinka`) valu
 DROP TABLE IF EXISTS `treningsatrenerom`;
 
 CREATE TABLE `treningsatrenerom` (
+  `idTreningSaTrenerom` int NOT NULL AUTO_INCREMENT,
   `idKlijent` int NOT NULL,
   `nivoPodrske` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `zdravstvenoStanje` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`idKlijent`),
-  CONSTRAINT `fk_tst_klijent` FOREIGN KEY (`idKlijent`) REFERENCES `klijent` (`idKlijent`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`idTreningSaTrenerom`),
+  KEY `fk_tst_klijent` (`idKlijent`),
+  CONSTRAINT `fk_tst_klijent` FOREIGN KEY (`idKlijent`) REFERENCES `klijent` (`idKlijent`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `treningsatrenerom` */
 
-insert  into `treningsatrenerom`(`idKlijent`,`nivoPodrske`,`zdravstvenoStanje`) values 
-(1,'Visok','Bez hronicnih problema');
+insert  into `treningsatrenerom`(`idTreningSaTrenerom`,`idKlijent`,`nivoPodrske`,`zdravstvenoStanje`) values 
+(3,1,'aa','AA');
 
 /*Table structure for table `trtr` */
 
@@ -198,7 +201,7 @@ CREATE TABLE `vezba` (
   `grupaMisica` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   `oprema` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`idVezba`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `vezba` */
 

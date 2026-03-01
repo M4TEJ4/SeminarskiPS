@@ -49,11 +49,11 @@ public class Cordinator {
 
     private PrikazPlanovaTreningaController ppController;
     private DodajPlanTreningaController dpController;
-    
+
     private PrikazTreneraController ptController;
     private DodajTreneraController dtController;
 
-    // BITNO: jedna jedina instanca glavne forme
+    // jedna jedina instanca glavne forme
     private GlavnaForma glavnaForma;
 
     private Cordinator() {
@@ -88,7 +88,6 @@ public class Cordinator {
         loginConroller.otvoriFormu();
     }
 
-    // OVO JE TVOJA "GLAVNA FORMA" - prikaz planova na GlavnaForma
     public void otvoriGlavnuFormu() {
         if (glavnaForma == null) {
             glavnaForma = new GlavnaForma();
@@ -96,10 +95,9 @@ public class Cordinator {
         }
 
         dodajParam("aktivnaForma", "plan");
-        ppController.otvoriFormu(); // ovo mora da uradi setVisible(true)
+        ppController.otvoriFormu();
     }
 
-    // Ako negde i dalje zoveš ovu metodu, samo preusmeri na istu glavnu formu
     public void otvoriPrikazPlanovaTreningaFormu() {
         otvoriGlavnuFormu();
     }
@@ -165,6 +163,7 @@ public class Cordinator {
         dpController = new DodajPlanTreningaController(new DodajPlanTreningaForm());
         dpController.otvoriFormu(FormaMod.IZMENI);
     }
+
     public void otvoriPrikazTreneraFormu() {
         ptController = new PrikazTreneraController(new PrikazTreneraForm());
         dodajParam("aktivnaForma", "trener");
@@ -180,17 +179,19 @@ public class Cordinator {
         dtController = new DodajTreneraController(new DodajTreneraForm());
         dtController.otvoriFormu(FormaMod.IZMENI);
     }
+
     public void osveziFormu() {
         Object aktivnaForma = parametri.get("aktivnaForma");
 
         if ("klijent".equals(aktivnaForma) && pkController != null) {
             pkController.osveziFormu();
             pkController.osveziSamostalneTreninge();
+            pkController.osveziTreningeSaTrenerom();
         } else if ("vezba".equals(aktivnaForma) && pvController != null) {
             pvController.osveziFormu();
         } else if ("plan".equals(aktivnaForma) && ppController != null) {
             ppController.osveziFormu();
-        }else if ("trener".equals(aktivnaForma) && ptController != null) {
+        } else if ("trener".equals(aktivnaForma) && ptController != null) {
             ptController.osveziFormu();
         }
     }
